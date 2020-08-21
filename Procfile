@@ -1,1 +1,1 @@
-web: gunicorn Food_webhook:app
+web: gunicorn Food_web:app
