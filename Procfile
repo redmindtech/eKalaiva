@@ -1,1 +1,1 @@
-web: gunicorn Food_web:app --preload
+web: gunicorn Food_web:app
