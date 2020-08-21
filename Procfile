@@ -1,1 +1,1 @@
-web: gunicorn Food_web:app
+web: gunicorn Food_web:server
