@@ -6,7 +6,7 @@ import os
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-mydb = mysql.connector.connect(host="127.0.0.1", user="bn_moodle", passwd="a4386605f1", database="bitnami_moodle")
+mydb = mysql.connector.connect(host="127.0.0.1", user="root", passwd="", database="dt")
 mycursor = mydb.cursor()
 app.secret_key = 1
 app.secret_code = 0
