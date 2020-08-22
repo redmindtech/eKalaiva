@@ -2,7 +2,7 @@
 
 import json
 import os
-import mysql.connector
+#import mysql.connector
 
 #from flask import Flask, session, redirect, url_for, request
 from flask import Flask
@@ -12,8 +12,8 @@ from flask import jsonify
 import course
 
 app = Flask(__name__)
-mydb = mysql.connector.connect(host="127.0.0.1", user="root", passwd="", database="dt",port="3306")
-mycursor = mydb.cursor()
+#mydb = mysql.connector.connect(host="127.0.0.1", user="root", passwd="", database="dt",port="3306")
+#mycursor = mydb.cursor()
 app.secret_key=0
 app.secret_code=1
 
@@ -21,7 +21,7 @@ app.secret_code=1
 def food():
     try:
         invoke_next_question = True
-        dbcon = mysql.connector.connect(host="127.0.0.1", user="root", password="", database="dt_mdle",port="3306")
+        #dbcon = mysql.connector.connect(host="127.0.0.1", user="root", password="", database="dt_mdle",port="3306")
         req = request.get_json(silent=True, force=True)
 
         print("----------------START-------------------")
@@ -36,286 +36,7 @@ def food():
         print("current_intent - ", current_intent)
         print("current_reply - ", current_reply)
 
-        #Check for login
-        value = (req.get('queryResult'))
-        name = value.get('parameters')
-        emailid = name.get('email')
-        email1 = emailid
-        print(email1)
-        start = name.get('ready')
-        ans = name.get('option')
-        close = name.get('exit')
-
-        if emailid is not None:
-            tr = "select username,id from mdl_user where email=" + '"' + emailid + '"';
-            print("query--",tr)
-            mycursor.execute(tr)
-            username = ''
-            username = mycursor.fetchone()
-            print("name--",username)
-            print("id--",id)
-            # id=mycursor.fetchone()
-            if username is not None:
-                app.secret_key = username[1]
-                bot_reply = {
-                    "fulfillmentText": "welcome {}! Please choose a category(Quiz/lesson)".format(*username),
-                    "followupEventInput": {
-                        "name": "6_Subjects",
-
-                    }
-                }
-                if (bot_reply):
-                    res = jsonify(bot_reply)
-                return res
-            else:
-                res = jsonify({
-                    "fulfillmentText": "Please Register in E-Kalaiva to proceed",
-                    "Payload": {
-                        "google": {
-                            "expectUserResponse": {
-                                "items": [
-                                    {
-                                        "simpleResponse": {
-                                            "textToSpeech": "Please Register In E-Kalaiva to proceed"
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    }
-                })
-                return res
-        elif start is not None:
-            course.re_set()
-            u_id = app.secret_key
-            second = course.main(u_id, i=1)
-            s = ''.join(second)
-            q1, opt1, opt2, opt3, opt4 = course.ques_split(s)
-            Q1 = ''.join(q1)
-            op1 = ''.join(opt1)
-            op2 = ''.join(opt2)
-            op3 = ''.join(opt3)
-            op4 = ''.join(opt4)
-            res = jsonify({
-                "fulfillmentText": Q1,
-                "fulfillmentMessages": [
-                    {
-                        "text": {
-                            "text": [
-                                Q1,
-                            ]
-                        }
-                    },
-                    {
-                        "text": {
-                            "text": [
-                                "The options are :",
-                            ]
-                        }
-                    },
-                    {
-                        "text": {
-                            "text": [
-                                op1 + "~" + op2 + "~" + op3 + "~" + op4,
-                            ]
-                        }
-                    }
-                ],
-                "payload": {
-                    "google": {
-                        "expectUserResponse": True,
-                        "richResponse": {
-                            "items": [
-                                {
-                                    "simpleResponse": {
-                                        "textToSpeech": Q1 +
-                                                        "The options are :"
-                                    }
-                                },
-                                {
-                                    "simpleResponse": {
-                                        "textToSpeech": op1 + "||" + op2 + "||" + op3 + "||" + op4,
-                                    }
-                                }
-                            ],
-                            "suggestions": [
-                                {
-                                    "title": op1
-                                },
-                                {
-                                    "title": op2
-                                },
-                                {
-                                    "title": op3
-                                },
-                                {
-                                    "title": op4
-                                }
-                            ]
-                        }
-                    }
-                }
-            })
-            return res
-        elif ans is not None:
-            d = app.secret_key
-            ques = course.query2(d)
-            an = ans.title()
-            an1 = ans.upper()
-            an2 = ans.lower()
-            an3 = ans.capitalize()
-            reply, score = course.valid(ans, an, an1, an2, an3, d)
-            count = course.ques_count(d)
-            if type(ques) is not int:
-                str1 = ''.join(ques)
-                str2 = ''.join(reply)
-                str3 = str(score)
-                q, o1, o2, o3, o4 = course.ques_split(str1)
-                Q1 = ''.join(q)
-                op1 = ''.join(o1)
-                op2 = ''.join(o2)
-                op3 = ''.join(o3)
-                op4 = ''.join(o4)
-                res = jsonify({
-                    "fulfillmentText": Q1,
-                    "fulfillmentMessages": [
-                        {
-                            "text": {
-                                "text": [
-                                    str2,
-                                ]
-                            }
-                        },
-                        {
-                            "text": {
-                                "text": [
-                                    "Next question is --> " + "   " + Q1,
-                                ]
-                            }
-                        },
-                        {
-                            "text": {
-                                "text": [
-                                    "The options are :",
-                                ]
-                            }
-                        },
-                        {
-                            "text": {
-                                "text": [
-                                    op1 + "~" + op2 + "~" + op3 + "~" + op4,
-                                ]
-                            }
-                        },
-                        {
-                            "text": {
-                                "text": [
-                                    "current score = " + str3,
-                                ]
-                            }
-                        }
-                    ],
-                    "payload": {
-                        "google": {
-                            "expectUserResponse": True,
-                            "richResponse": {
-                                "items": [
-                                    {
-                                        "simpleResponse": {
-                                            "textToSpeech": str2 +
-                                                            "Next question is --> " + "   " + Q1 +
-                                                            "The options are :"
-                                        }
-                                    },
-                                    {
-                                        "simpleResponse": {
-                                            "textToSpeech": op1 + "||" + op2 + "||" + op3 + "||" + op4 +
-                                                            "current score = " + str3
-                                        }
-                                    }
-                                ],
-                                "suggestions": [
-                                    {
-                                        "title": op1
-                                    },
-                                    {
-                                        "title": op2
-                                    },
-                                    {
-                                        "title": op3
-                                    },
-                                    {
-                                        "title": op4
-                                    }
-                                ]
-                            }
-                        }
-                    }
-                })
-                return res
-            else:
-                x = app.secret_key
-                course.score_update(x, score)
-                res = jsonify({
-                    "fulfillmentText": "Do you want to take quiz again?",
-                    "fulfillmentMessages": [
-                        {
-                            "text": {
-                                "text": [
-                                    reply,
-                                ]
-                            }
-                        },
-                        {
-                            "text": {
-                                "text": [
-                                    "QUIZ ENDED-->Your total score is {} out of {}".format(score, count),
-                                ]
-                            }
-                        },
-                        {
-                            "text": {
-                                "text": [
-                                    "Do you want to take Quiz again?",
-                                ]
-                            }
-                        }
-                    ],
-                    "payload": {
-                        "google": {
-                            "expectUserResponse": {
-                                "items": [
-                                    {
-                                        "simpleResponse": {
-                                            "textToSpeech": reply,
-                                        }
-                                    },
-                                    {
-                                        "simpleResponse": {
-                                            "textToSpeech": "QUIZ ENDED-->Your total score is {} out of {}".format(
-                                                score, count) +
-                                                            "Do you want to take quiz again?"
-                                        }
-                                    }
-                                ],
-                                "suggestions": [
-                                    {
-                                        "title": "Yes"
-                                    },
-                                    {
-                                        "title": "No"
-                                    }
-                                ]
-                            }
-                        }
-                    }
-                })
-                return res
-        elif close is not None:
-            course.re_set()
-
-
-
+        
         if current_intent.endswith("Keypoints"):
             next_intent=current_intent
             print("Keypoints executed")
