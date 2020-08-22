@@ -2,7 +2,7 @@
 
 import json
 import os
-#import mysql.connector
+import mysql.connector
 
 #from flask import Flask, session, redirect, url_for, request
 from flask import Flask
@@ -12,8 +12,8 @@ from flask import jsonify
 import course
 
 app = Flask(__name__)
-#mydb = mysql.connector.connect(host="127.0.0.1", user="root", passwd="", database="dt",port="3306")
-#mycursor = mydb.cursor()
+mydb = mysql.connector.connect(host="127.0.0.1", user="root", passwd="", database="dt",port="3306")
+mycursor = mydb.cursor()
 app.secret_key=0
 app.secret_code=1
 
@@ -21,7 +21,7 @@ app.secret_code=1
 def food():
     try:
         invoke_next_question = True
-        #dbcon = mysql.connector.connect(host="127.0.0.1", user="root", password="", database="dt_mdle",port="3306")
+        dbcon = mysql.connector.connect(host="127.0.0.1", user="root", password="", database="dt_mdle",port="3306")
         req = request.get_json(silent=True, force=True)
 
         print("----------------START-------------------")
@@ -49,7 +49,7 @@ def food():
         if emailid is not None:
             tr = "select username,id from mdl_user where email=" + '"' + emailid + '"';
             print("query--",tr)
-            #mycursor.execute(tr)
+            mycursor.execute(tr)
             username = ''
             username = mycursor.fetchone()
             print("name--",username)
