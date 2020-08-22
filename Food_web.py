@@ -9,7 +9,7 @@ from flask import Flask
 from flask import request
 from flask import make_response
 from flask import jsonify
-import course
+#import course
 
 app = Flask(__name__)
 #mydb = mysql.connector.connect(host="127.0.0.1", user="root", passwd="", database="dt",port="3306")
