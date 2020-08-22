@@ -6,7 +6,7 @@ import os
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-mydb = mysql.connector.connect(host="127.0.0.1", user="root", passwd="", database="dt")
+mydb = mysql.connector.connect(host="127.0.0.1", user="root", passwd="", database="dt",port="3306")
 mycursor = mydb.cursor()
 app.secret_key = 1
 app.secret_code = 0
