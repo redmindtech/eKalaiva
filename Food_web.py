@@ -12,7 +12,7 @@ from flask import jsonify
 import course
 
 app = Flask(__name__)
-mydb = mysql.connector.connect(host = "127.0.0.1", user = "root",passwd = "",database="dt")
+mydb = mysql.connector.connect(host = "127.0.0.1", user = "bn_moodle",passwd = "a4386605f1",database="bitnami_moodle")
 mycursor = mydb.cursor()
 app.secret_key=0
 app.secret_code=1
