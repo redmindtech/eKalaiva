@@ -1,1 +1,1 @@
-web: python Food_web.py runserver 0.0.0.0:5000
+web: gunicorn Food_web:app
