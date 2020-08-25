@@ -48,7 +48,22 @@ def food():
         print("next intent - ", next_intent)
 
 
-        
+         if current_reply == "Next_Lesson":
+            print("came here")
+            str_array= current_intent.split("_")
+            print("couldnt do",len(str_array))
+            print("(str_array(3)--",int(str_array[3]) + 1)
+            
+            current_intent = str_array[0] + "_" + str_array[1] + "_" + str_array[2] + "_" + str(int(str_array[3]) + 1)
+            print("current-intent--",current_intent)
+            bot_reply = {
+                "followupEventInput": {
+                    "name": current_intent,
+                    "data": {
+                        "user-answer": current_intent + "." + current_reply
+                    }
+                }
+            }
         if current_reply == "start_lesson":
             # this is to find whether the lesson is started
             str_array = current_intent.split("_")
@@ -59,7 +74,9 @@ def food():
             elif len(str_array) == 4:
                 current_intent = current_intent + "_1"
             elif current_intent == "6_Science_Lesson_2_7":
-                    current_intent = current_intent[:-2]
+                current_intent = current_intent[:-2]
+            elif current_intent == "6_Social_Lesson_2_8":
+                current_intent = current_intent[:-2]
             elif current_intent.find("Keypoints"):
                 current_intent= current_intent[:-10]
             else:
