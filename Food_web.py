@@ -77,6 +77,9 @@ def food():
                 current_intent = current_intent[:-2]
             elif current_intent == "6_Social_Lesson_2_8":
                 current_intent = current_intent[:-2]
+            elif current_intent == "6_Social_Lesson_1_8":
+                current_intent = current_intent[:-2]
+                
             elif current_intent.find("Keypoints"):
                 current_intent= current_intent[:-10]
             else:
