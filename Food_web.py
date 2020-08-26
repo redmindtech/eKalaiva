@@ -68,22 +68,25 @@ def food():
             # this is to find whether the lesson is started
             str_array = current_intent.split("_")
             print("length--", len(str_array))
-            if current_intent == "6_Science_Lesson_1_6":
-                current_intent= current_intent[:-2]
+           
 
-            elif len(str_array) == 4:
+            if len(str_array) == 4:
                 current_intent = current_intent + "_1"
-            elif current_intent == "6_Science_Lesson_2_7":
-                current_intent = current_intent[:-2]
-            elif current_intent == "6_Social_Lesson_2_8":
-                current_intent = current_intent[:-2]
-            elif current_intent == "6_Social_Lesson_1_8":
-                current_intent = current_intent[:-2]
+            elif len(str_array) == 5 and current_intent.find("Keypoints") == FALSE:
+                current_intent= current_intent[:-2]
+            #elif current_intent == "6_Science_Lesson_1_6":
+            #    current_intent= current_intent[:-2]
+            #elif current_intent == "6_Science_Lesson_2_7":
+             #   current_intent = current_intent[:-2]
+            #elif current_intent == "6_Social_Lesson_2_8":
+             #   current_intent = current_intent[:-2]
+            #elif current_intent == "6_Social_Lesson_1_8":
+             #   current_intent = current_intent[:-2]
                 
             elif current_intent.find("Keypoints"):
                 current_intent= current_intent[:-10]
-        else:
-            current_intent = current_intent + "_1"
+            else:
+                current_intent = current_intent + "_1"
             print(current_intent)
             bot_reply = {
                 "followupEventInput": {
@@ -93,6 +96,17 @@ def food():
                     }
                 }
             }
+        elif current_reply == "Watch_video":
+            current_intent = current_intent + "_Video"
+            bot_reply = {
+                    "followupEventInput": {
+                    "name": current_intent,
+                    "data": {
+                       "user-answer": current_intent + "." + current_reply
+                    }
+                }
+            }
+            print(bot_reply)
         elif current_reply == "repeat":
 
             bot_reply = {
