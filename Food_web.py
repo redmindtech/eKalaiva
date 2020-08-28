@@ -83,7 +83,7 @@ def food():
             elif current_intent.find("Keypoints"):
                 current_intent= current_intent[:-10]
             else:
-                current_intent = current_intent + "_1"
+                current_intent = current_intent + "_1_1"
             print(current_intent)
             bot_reply = {
                 "followupEventInput": {
