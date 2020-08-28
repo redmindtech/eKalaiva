@@ -74,7 +74,7 @@ def food():
             elif len(str_array) == 5:
                 if(current_intent.endswith("Keypoints")):
                    current_intent= current_intent[:-10]
-                else
+                else:
                    current_intent= current_intent[:-2]
             #elif current_intent == "6_Science_Lesson_1_6":
              #   current_intent= current_intent[:-2]
