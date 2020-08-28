@@ -1,4 +1,4 @@
-import mysql.connector
+
 import mysql.connector as mysql
 from flask import Flask, session, redirect, url_for, request
 #from flask import Flask
