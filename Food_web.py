@@ -53,6 +53,7 @@ def food():
         if emailid is not None:
             e_mail = ''.join(emailid)
             email1 = course.email(e_mail)
+            print("result--",email1)
             bot_reply = {
                     "fulfillmentText": email1,
                     "followupEventInput": {
