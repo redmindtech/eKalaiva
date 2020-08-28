@@ -72,7 +72,7 @@ def food():
             if len(str_array) == 4:
                 current_intent = current_intent + "_1"
             elif len(str_array) == 5:
-                if(current_intent.endswith("Keypoints"):
+                if(current_intent.endswith("Keypoints")):
                    current_intent= current_intent[:-10]
                 else
                    current_intent= current_intent[:-2]
