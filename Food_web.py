@@ -130,14 +130,19 @@ def food():
             print(bot_reply)
 
         elif current_reply == "back_to_lesson":
+            print("current-intent--", current_intent)
+            str_array = current_intent.split("_")
+            current_intent = str_array[0] + "_" + str_array[1] + "_" + str_array[2] + "_" + str_array[3]
+            #current_intent = current_intent[:-6]
+            print("current-intent--", current_intent)
             bot_reply = {
-                "followupEventInput": {
-                    "name": current_intent,
-                    "data": {
-                        "user-answer": next_intent + "." + current_reply
+                    "followupEventInput": {
+                        "name": current_intent,
+                        "data": {
+                            "user-answer": next_intent + "." + current_reply
+                        }
                     }
                 }
-            }
             print(bot_reply)
 
         elif current_reply == "Keypoints":
