@@ -53,23 +53,16 @@ def food():
         if emailid is not None:
             e_mail = ''.join(emailid)
             email1 = course.email(e_mail)
-            res = jsonify({
-                "fulfillmentText": email1,
-                "payload": {
-                    "google": {
-                        "expectUserResponse": {
-                            "items": [
-                                {
-                                    "simpleResponse": {
-                                        "textToSpeech": email1
-                                    }
-                                }
-                            ]
-                        }
+            bot_reply = {
+                    "fulfillmentText": email1,
+                    "followupEventInput": {
+                        "name": "6_Subjects",
+
                     }
                 }
-            })
-
+            if (bot_reply):
+                res = jsonify(bot_reply)
+            return res
 
         elif q_name is not None:
             app.secret_key = q_name
