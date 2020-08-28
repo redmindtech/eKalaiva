@@ -48,7 +48,7 @@ def food():
         print("next intent - ", next_intent)
 
 
-         if current_reply == "Next_Lesson":
+        if current_reply == "Next_Lesson":
             print("came here")
             str_array= current_intent.split("_")
             print("couldnt do",len(str_array))
