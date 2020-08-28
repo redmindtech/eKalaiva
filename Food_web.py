@@ -69,10 +69,11 @@ def food():
             str_array = current_intent.split("_")
             print("length--", len(str_array))
            
-
-            if len(str_array) == 4:
+            if current_intent.find("Keypoints"):
+                current_intent = str_array[0] + "_" + str_array[1] + "_" + str_array[2] + "_" + str_array[3]
+            elif len(str_array) == 4:
                 current_intent = current_intent + "_1"
-            elif len(str_array) == 5 and current_intent.find("Keypoints") == FALSE:
+            elif len(str_array) == 5:
                 current_intent= current_intent[:-2]
             #elif current_intent == "6_Science_Lesson_1_6":
             #    current_intent= current_intent[:-2]
