@@ -52,7 +52,7 @@ def food():
         #q_name = name.get('quizname')
         #print(q_name)
         print(app.email)
-        if (emailid is not None) and (app.email == 0) and (current_intent is None:
+        if (emailid is not None) and (app.email == 0) and (current_intent is None):
             e_mail = ''.join(emailid)
             email1 = course.email(e_mail)
             print("result--",email1)
@@ -83,8 +83,8 @@ def food():
                 res = jsonify(bot_reply)
                 return res
 
-        elif close is not None:
-            course.re_set()
+        #elif close is not None:
+         #   course.re_set()
 
         if current_intent.endswith("Keypoints"):
             next_intent = current_intent
