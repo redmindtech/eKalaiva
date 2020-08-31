@@ -18,7 +18,7 @@ app.secret_code=1
 app.secret_count=0
 app.secret_ques=0
 app.secret_ans=0
-app.email=0
+#app.email=0
 
 
 @app.route("/food", methods=['POST', 'GET'])
@@ -51,15 +51,15 @@ def food():
         #close = name.get('exit')
         #q_name = name.get('quizname')
         #print(q_name)
-        print(app.email)
-        if (emailid is not None) and (app.email == 0) and (current_intent is None):
+        #print(app.email)
+        if (emailid is not None) and (current_intent is None):
             e_mail = ''.join(emailid)
             email1 = course.email(e_mail)
             print("result--",email1)
-            print(app.email)
-            if email1 is not None:
-                app.email = 1
-                print(app.email)
+            #print(app.email)
+            #if email1 is not None:
+             #   app.email = 1
+              #  print(app.email)
             if email1 is not None and email1.find("Are you Ready for the Quiz?"):
                 bot_reply = {
                     "fulfillmentText": email1,
