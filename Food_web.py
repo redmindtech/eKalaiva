@@ -41,7 +41,7 @@ def food():
         
         emailid = req.get("queryResult")
         print("emailid--",emailid)
-        emailid = req.get("queryResult").get("querytext")
+        emailid = req.get("queryResult").get("queryText")
         #value = (req.get('queryResult'))
         #name = value.get('parameters')
         #emailid = name.get('email')
