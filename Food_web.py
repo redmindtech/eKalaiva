@@ -46,10 +46,10 @@ def food():
         # email1=emailid
         print(emailid)
         # start=name.get('ready')
-        ans = name.get('option')
-        close = name.get('exit')
-        q_name = name.get('quizname')
-        print(q_name)
+        #ans = name.get('option')
+        #close = name.get('exit')
+        #q_name = name.get('quizname')
+        #print(q_name)
 
         if emailid is not None:
             e_mail = ''.join(emailid)
