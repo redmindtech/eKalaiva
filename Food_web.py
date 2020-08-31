@@ -18,6 +18,7 @@ app.secret_code=1
 app.secret_count=0
 app.secret_ques=0
 app.secret_ans=0
+app.email=""
 
 
 @app.route("/food", methods=['POST', 'GET'])
