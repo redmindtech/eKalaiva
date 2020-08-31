@@ -42,6 +42,7 @@ def food():
         
         #emailid = "meetarun@gmail.com"
         value = (req.get('queryResult'))
+        print("value -- ",value)
         name = value.get('parameters')
         emailid = name.get('option')
         #email1=emailid
