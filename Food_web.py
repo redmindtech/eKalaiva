@@ -40,7 +40,8 @@ def food():
         print("current_reply - ", current_reply)
 
         value = (req.get('queryResult'))
-        name = value.get('parameters')[0]
+        name = value.get('outputContexts')[0]
+        name = name.get('parameters')
         emailid = name.get('email')
         # email1=emailid
         print(emailid)
