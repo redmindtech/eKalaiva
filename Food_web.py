@@ -52,7 +52,7 @@ def food():
         #q_name = name.get('quizname')
         #print(q_name)
         print(app.email)
-        if emailid is not None and app.email == 0:
+        if (emailid is not None) and (app.email == 0):
             e_mail = ''.join(emailid)
             email1 = course.email(e_mail)
             print("result--",email1)
