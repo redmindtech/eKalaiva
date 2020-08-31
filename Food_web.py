@@ -58,7 +58,7 @@ def food():
             print("result--",email1)
             if email1 is not None:
                 #user_array = email1.split("?")
-                app.email = "1"
+                app.email = 1
             if email1 is not None and email1.find("Are you Ready for the Quiz?"):
                 bot_reply = {
                     "fulfillmentText": email1,
