@@ -55,13 +55,25 @@ def food():
             e_mail = ''.join(emailid)
             email1 = course.email(e_mail)
             print("result--",email1)
-            bot_reply = {
+            if email1.startsWith("welcome {}! Are you Ready for the Quiz?"):
+                bot_reply = {
                     "fulfillmentText": email1,
                     "followupEventInput": {
                         "name": "6_Subjects",
 
                     }
-                }
+                 }
+                
+            else:
+                bot_reply = {
+                    "fulfillmentText": "You have to be a registered user to login",
+                    "followupEventInput": {
+                        "name": "Unauthorised user",
+
+                    }
+                 }
+                
+            
             if (bot_reply):
                 res = jsonify(bot_reply)
             return res
