@@ -55,7 +55,7 @@ def food():
             e_mail = ''.join(emailid)
             email1 = course.email(e_mail)
             print("result--",email1)
-            if email1.find("Are you Ready for the Quiz?"):
+            if email1 is not None and email1.find("Are you Ready for the Quiz?"):
                 bot_reply = {
                     "fulfillmentText": email1,
                     "followupEventInput": {
