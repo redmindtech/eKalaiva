@@ -55,7 +55,7 @@ def food():
             e_mail = ''.join(emailid)
             email1 = course.email(e_mail)
             print("result--",email1)
-            if email1.startsWith("welcome {}! Are you Ready for the Quiz?"):
+            if email1.find("Are you Ready for the Quiz?"):
                 bot_reply = {
                     "fulfillmentText": email1,
                     "followupEventInput": {
@@ -68,7 +68,7 @@ def food():
                 bot_reply = {
                     "fulfillmentText": "You have to be a registered user to login",
                     "followupEventInput": {
-                        "name": "Unauthorised user",
+                        "name": "Unauthorised_user",
 
                     }
                  }
