@@ -79,7 +79,7 @@ def food():
             
             if (bot_reply):
                 res = jsonify(bot_reply)
-            #return res
+            return res
 
         elif q_name is not None:
             app.secret_key = q_name
