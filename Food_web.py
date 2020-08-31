@@ -40,9 +40,9 @@ def food():
         print("current_reply - ", current_reply)
 
         value = (req.get('queryResult'))
-        name = value.get('outputContexts')[0]
-        name = name.get('parameters')
-        emailid = name.get('email')
+        emailid = value.get('querytext')
+        #name = value.get('parameters')
+        #emailid = name.get('email')
         # email1=emailid
         print(emailid)
         # start=name.get('ready')
