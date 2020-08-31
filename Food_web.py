@@ -38,9 +38,9 @@ def food():
 
         print("current_intent - ", current_intent)
         print("current_reply - ", current_reply)
-
-        value = (req.get('queryResult'))
-        emailid = value.get('querytext')
+        emailid = req.get("queryResult").get("outputContexts")[0].get("parameters").get("option")
+        #value = (req.get('queryResult'))
+        #emailid = value.get('querytext')
         #name = value.get('parameters')
         #emailid = name.get('email')
         # email1=emailid
