@@ -50,10 +50,13 @@ def food():
         #q_name = name.get('quizname')
         #print(q_name)
 
-        if emailid is not None:
+        if emailid is not None and app.email is not None:
             e_mail = ''.join(emailid)
             email1 = course.email(e_mail)
             print("result--",email1)
+            if email1 is not None:
+                user_array = email1.split("?")
+                app.email = user_array(1)
             if email1 is not None and email1.find("Are you Ready for the Quiz?"):
                 bot_reply = {
                     "fulfillmentText": email1,
