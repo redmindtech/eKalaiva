@@ -43,7 +43,7 @@ def food():
         value = (req.get('queryResult'))
         print("value -- ",value)
         name = value.get('parameters')
-        emailid = name.get('option')
+        emailid = name.get('email')
         #email1=emailid
         #print(emailid)
         #start=name.get('ready')
