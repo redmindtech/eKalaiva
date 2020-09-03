@@ -42,7 +42,7 @@ def food():
         #emailid = "meetarun@gmail.com"
         value = (req.get('queryResult'))
         print("value -- ", value)
-	name = value.get('parameters')
+	#name = value.get('parameters')
 	emailid = name.get('email')
 	#email1=emailid
         #print(emailid)
@@ -279,7 +279,7 @@ def food():
                     "text":{
                         "text":[
                   "Do you want to take Quiz again?",
-                  ]
+                  	]
                       }
                   }
                    ],
@@ -301,7 +301,7 @@ def food():
                          "title":"No"
                       }
                    ]
-                }
+            		    }
             		 }
             		 }
             		})
