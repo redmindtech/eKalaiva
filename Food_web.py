@@ -42,15 +42,15 @@ def food():
         #emailid = "meetarun@gmail.com"
         value = (req.get('queryResult'))
         print("value -- ", value)
-	name = value.get('parameters')
-	emailid = name.get('email')
+	#name = value.get('parameters')
+	#emailid = name.get('email')
 	#email1=emailid
         #print(emailid)
         #start=name.get('ready')
-        ans = name.get('option')
-        close = name.get('exit')
-        q_name = name.get('quizname')
-        print(q_name)
+        #ans = name.get('option')
+        #close = name.get('exit')
+        #q_name = name.get('quizname')
+        #print(q_name)
         #print(app.email)
         if (emailid is not None) and (current_intent is None):
             e_mail = ''.join(emailid)
