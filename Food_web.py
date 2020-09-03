@@ -41,12 +41,11 @@ def food():
         
         #emailid = "meetarun@gmail.com"
         value = (req.get('queryResult'))
-        print("value -- ",value)
-	print("before params",value)
-        name = value.get('parameters')
-	print("after params",name)
+        print("value -- ", value)
+	name = value.get('parameters')
+	print("after params" , name)
         emailid = name.get('email')
-	print("after email", emailid)
+	print("after email" , emailid)
         #email1=emailid
         #print(emailid)
         #start=name.get('ready')
