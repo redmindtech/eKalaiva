@@ -86,17 +86,17 @@ def food():
         elif q_name is not None:
             app.secret_key=q_name
             quiz=  ''.join(app.secret_key)
-	        #First question from DB
-            second=test1.main(quiz,i=1)
-	        #Getting question count
+	    #First question from DB
+            second=course.main(quiz,i=1)
+	    #Getting question count
             #c=test1.ques_count(quiz)
             #app.secret_count=c
-	        #retrieving the quiz 
-            qu,ans,c=test1.query(quiz)
+	    #retrieving the quiz 
+            qu,ans,c=course.query(quiz)
             #print(c)
             app.secret_ques=qu
             app.secret_count=c
-	        #fetching the quiz answers
+	    #fetching the quiz answers
             #u=test1.fetching(quiz)
             app.secret_ans=ans
             s=  ''.join(second)
@@ -184,10 +184,10 @@ def food():
                 op3=  ''.join(o3)
                 op4=  ''.join(o4)
                 res=jsonify({
-                "fulfillmentText":Q1,
-                "fulfillmentMessages":[
-                     {
-                    "text":{
+                	"fulfillmentText":Q1,
+                	"fulfillmentMessages":[
+                    		 {
+                    		"text":{
                         "text":[
                         str2,
                          ]
@@ -255,9 +255,9 @@ def food():
                        }
                     }
                  }
-              })
+                     })
             else:
-                test1.re_set()
+                course.re_set()
                 res=jsonify({
                     "fulfillmentText":"Do you want to take quiz again?",
                     "fulfillmentMessages":[
@@ -282,9 +282,9 @@ def food():
                   ]
                       }
                   }
-                ],
-                "payload":{
-                    "google":{
+                   ],
+                	"payload":{
+                    	"google":{
                         "expectUserResponse":{
                     "items":[
                       {
@@ -302,13 +302,13 @@ def food():
                       }
                    ]
                 }
-             }
-             }
-            })
+            		 }
+            		 }
+            		})
             return res
 
         elif close is not None:
-            test1.re_set()
+            course.re_set()
             return res
 
                
