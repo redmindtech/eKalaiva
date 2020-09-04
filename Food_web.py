@@ -1,4 +1,4 @@
-#- * - coding: utf8 -*-
+# - * - coding: utf8 -*-
 
 import json
 import os
@@ -13,12 +13,13 @@ from flask import jsonify
 import course
 
 app = Flask(__name__)
-app.secret_key=0
-app.secret_code=1
-app.secret_count=0
-app.secret_ques=0
-app.secret_ans=0
-#app.email=0
+app.secret_key = 0
+app.secret_code = 1
+app.secret_count = 0
+app.secret_ques = 0
+app.secret_ans = 0
+
+app.email=0
 
 
 @app.route("/food", methods=['POST', 'GET'])
@@ -38,29 +39,64 @@ def food():
 
         print("current_intent - ", current_intent)
         print("current_reply - ", current_reply)
-        
-        emailid = "meetarun@gmail.com"
+
+        #emailid = "meetarun@gmail.com"
         value = (req.get('queryResult'))
         print("value -- ", value)
-	#emailid = req.get("queryResult").get("parameters").get("email")
-	#name = value.get('parameters')
-	#emailid = name.get('email')
-	#email1=emailid
-        #print(emailid)
-        #start=name.get('ready')
-        #ans = name.get('option')
-        #close = name.get('exit')
-        #q_name = name.get('quizname')
-        #print(q_name)
-        #print(app.email)
-        if (emailid is not None) and (current_intent is None):
+        emailid = ""
+        ans=""
+        q_name=""
+        close=""
+        #name = value.get('parameters')
+        if (req.get("queryResult").get("intent").get("displayName") == "welcome - next"):
+            emailid = req.get("queryResult").get("parameters").get("email")
+            print(emailid)
+        if (req.get("queryResult").get("intent").get("displayName") == "ans_code"):
+            ans = req.get("queryResult").get("parameters").get("option")
+            print("ans--",ans)
+            if(ans == "change_lesson"):
+                bot_reply = {
+                    "fulfillmentText": "change_lesson",
+                    "followupEventInput": {
+                        "name": "6_Science_Lesson",
+
+                    }
+                }
+                res = jsonify(bot_reply)
+                return res
+
+            if (ans == "select_subject"):
+                bot_reply = {
+                    "fulfillmentText": "select_subject",
+                    "followupEventInput": {
+                        "name": "6_Subjects",
+
+                    }
+                }
+                res = jsonify(bot_reply)
+                return res
+
+
+
+        if (req.get("queryResult").get("intent").get("displayName") == "Quiz"):
+            ready = req.get("queryResult").get("parameters").get("ready")
+            print(ready)
+        if (req.get("queryResult").get("intent").get("displayName") == "Exit"):
+            close = req.get("queryResult").get("parameters").get("exit")
+            print(close)
+        if (req.get("queryResult").get("intent").get("displayName") == "Quiz"):
+            q_name = req.get("queryResult").get("parameters").get("quizname")
+            print(q_name)
+
+        if (emailid != "") and (app.email == 0):
+
             e_mail = ''.join(emailid)
             email1 = course.email(e_mail)
-            print("result--",email1)
-            #print(app.email)
-            #if email1 is not None:
-             #   app.email = 1
-              #  print(app.email)
+            print("result--", email1)
+            # print(app.email)
+            if email1 is not None:
+               app.email = 1
+               print(app.email)
             if email1 is not None and email1.find("Are you Ready for the Quiz?"):
                 bot_reply = {
                     "fulfillmentText": email1,
@@ -68,8 +104,8 @@ def food():
                         "name": "6_Subjects",
 
                     }
-                 }
-                
+                }
+
             else:
                 bot_reply = {
                     "fulfillmentText": "You have to be a registered user to login",
@@ -77,14 +113,236 @@ def food():
                         "name": "Unauthorised_user",
 
                     }
-                 }
-                
-            
+                }
+
             if (bot_reply):
                 res = jsonify(bot_reply)
                 return res
 
-               
+        elif q_name != "":
+            app.secret_key = q_name
+            quiz = ''.join(app.secret_key)
+            # First question from DB
+            second = course.main(quiz, i=1)
+            s = ''.join(second)
+            q1, opt1, opt2, opt3, opt4 = course.ques_split(s)
+            Q1 = ''.join(q1)
+            op1 = ''.join(opt1)
+            op2 = ''.join(opt2)
+            op3 = ''.join(opt3)
+            op4 = ''.join(opt4)
+            res = jsonify({
+                "fulfillmentText": Q1,
+                "fulfillmentMessages": [
+                    {
+                        "text": {
+                            "text": [
+                                Q1,
+                            ]
+                        }
+                    },
+                    {
+                        "text": {
+                            "text": [
+                                "The options are :",
+                            ]
+                        }
+                    },
+                    {
+                        "text": {
+                            "text": [
+                                op1 + "~" + op2 + "~" + op3 + "~" + op4,
+                            ]
+                        }
+                    }
+                ],
+                "payload": {
+                    "google": {
+                        "expectUserResponse": True,
+                        "richResponse": {
+                            "items": [
+                                {
+                                    "simpleResponse": {
+                                        "textToSpeech": Q1
+                                    }
+                                }
+                            ],
+                            "suggestions": [
+                                {
+                                    "title": op1
+                                },
+                                {
+                                    "title": op2
+                                },
+                                {
+                                    "title": op3
+                                },
+                                {
+                                    "title": op4
+                                }
+                            ]
+                        }
+                    }
+                }
+            })
+            return res
+        elif ans != "":
+            print("control is here")
+            print(app.secret_key)
+            quiz = ''.join(app.secret_key)
+            print(quiz)
+            qu, answer = course.query(quiz)
+            app.secret_ques = qu
+            app.secret_ans = answer
+            print(qu)
+            print(answer)
+            questions = app.secret_ques
+            answers = app.secret_ans
+            print(questions)
+            print(answers)
+            x = app.secret_key
+            quiz = ''.join(x)
+            ques = course.query2(questions)
+            an = ans.title()
+            an1 = ans.upper()
+            an2 = ans.lower()
+            an3 = ans.capitalize()
+            reply, score = course.valid(ans, an, an1, an2, an3, answers)
+            if type(ques) is not int:
+                str1 = ''.join(ques)
+                str2 = ''.join(reply)
+                str3 = str(score)
+                q, o1, o2, o3, o4 = course.ques_split(str1)
+                Q1 = ''.join(q)
+                op1 = ''.join(o1)
+                op2 = ''.join(o2)
+                op3 = ''.join(o3)
+                op4 = ''.join(o4)
+                res = jsonify({
+                    "fulfillmentText": Q1,
+                    "fulfillmentMessages": [
+                        {
+                            "text": {
+                                "text": [
+                                    str2,
+                                ]
+                            }
+                        },
+                        {
+                            "text": {
+                                "text": [
+                                    "Next question is --> " + "   " + Q1,
+                                ]
+                            }
+                        },
+                        {
+                            "text": {
+                                "text": [
+                                    "The options are :",
+                                ]
+                            }
+                        },
+                        {
+                            "text": {
+                                "text": [
+                                    op1 + "~" + op2 + "~" + op3 + "~" + op4,
+                                ]
+                            }
+                        },
+                        {
+                            "text": {
+                                "text": [
+                                    "current score = " + str3,
+                                ]
+                            }
+                        }
+                    ],
+                    "payload": {
+                        "google": {
+                            "expectUserResponse": True,
+                            "richResponse": {
+                                "items": [
+                                    {
+                                        "simpleResponse": {
+                                            "textToSpeech": Q1
+                                        }
+                                    },
+                                    {
+                                        "simpleResponse": {
+                                            "textToSpeech": op1 + "|*|" + op2 + "|*|" + op3 + "|*|" + op4
+                                        }
+                                    }
+                                ],
+                                "suggestions": [
+                                    {
+                                        "title": op1
+                                    },
+                                    {
+                                        "title": op2
+                                    },
+                                    {
+                                        "title": op3
+                                    },
+                                    {
+                                        "title": op4
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                })
+            else:
+                print("control is here")
+                course.re_set()
+                app.email = 0
+                res = jsonify({
+                    "fulfillmentText": "QUIZ ENDED-->Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
+                    "fulfillmentMessages": [
+                        {
+                            "text": {
+                                "text": [
+                                    "QUIZ ENDED-->Your total score is {} out of 5".format(score),
+                                ]
+                            }
+                        },
+                        {
+                            "text": {
+                                "text": [
+                                    "Do you want to change lesson or select subject?",
+                                ]
+                            }
+                        }
+                    ],
+                    "payload": {
+                        "google": {
+                            "expectUserResponse": True,
+                            "richResponse": {
+                                "items": [
+                                    {
+                                        "simpleResponse": {
+                                            "textToSpeech": "QUIZ ENDED-->Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
+                                        }
+                                    }
+                                ],
+                                "suggestions": [
+                                    {
+                                        "title": "change_lesson"
+                                    },
+                                    {
+                                        "title": "select_subject"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                })
+            return res
+
+        elif close is not None:
+            course.re_set()
+
+
+
         if current_intent.endswith("Keypoints"):
             next_intent = current_intent
             print("Keypoints executed")
