@@ -33,7 +33,8 @@ def email(e_mail):
         mycursor.execute(tr, (e_mail,))
         username = mycursor.fetchone()
         if username is not None:
-            user = "welcome {}! Are you Ready for the Quiz?".format(*username)
+            #user = "welcome {}! Are you Ready for the Quiz?".format(*username)
+            user="{}".format(*username)
             return user
 
     except mysql.Error as err:
