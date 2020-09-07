@@ -120,7 +120,6 @@ def food():
                 return res
 
         elif q_name != "":
-            print("control is qname")
             app.secret_key = q_name
             quiz = ''.join(app.secret_key)
             # First question from DB
@@ -129,7 +128,6 @@ def food():
             q1, opt1, opt2, opt3, opt4 = course.ques_split(s)
             print("q1--",q1)
             Q1 = ''.join(q1)
-            print("Q1--",Q1)
             op1 = ''.join(opt1)
             op2 = ''.join(opt2)
             op3 = ''.join(opt3)
@@ -164,16 +162,25 @@ def food():
                         "expectUserResponse": True,
                         "richResponse": {
                             "items": [
-                                 {
-                                        "simpleResponse": {
-                                            "textToSpeech": Q1
-                                        }
-                                    },
-                                    {
-                                        "simpleResponse": {
-                                            "textToSpeech": op1 + ", " + op2 + ", " + op3 + ", " + op4 + "."
-                                        }
+                                {
+                                    "simpleResponse": {
+                                        "textToSpeech": Q1
                                     }
+                                },
+                                {
+                                    "text": {
+                                        "text": [
+                                            "The options are :",
+                                        ]
+                                    }
+                                },
+                                {
+                                    "text": {
+                                        "text": [
+                                            op1 + ", " + op2 + ", " + op3 + ", " + op4 + ".",
+                                        ]
+                                    }
+                                }
                             ],
                             "suggestions": [
                                 {
@@ -196,18 +203,12 @@ def food():
             return res
         elif ans != "":
             print("control is ans")
-            print(app.secret_key)
             quiz = ''.join(app.secret_key)
-            print(quiz)
             qu, answer = course.query(quiz)
             app.secret_ques = qu
             app.secret_ans = answer
-            print(qu)
-            print(answer)
             questions = app.secret_ques
             answers = app.secret_ans
-            print(questions)
-            print(answers)
             x = app.secret_key
             quiz = ''.join(x)
             ques = course.query2(questions)
@@ -253,7 +254,7 @@ def food():
                         {
                             "text": {
                                 "text": [
-                                    op1 + ", " + op2 + ", " + op3 + ", " + op4 + ".",
+                                    op1 + "~" + op2 + "~" + op3 + "~" + op4,
                                 ]
                             }
                         },
@@ -301,11 +302,11 @@ def food():
                 })
                 return res
             else:
-                print("control is final")
+                print("control is here")
                 course.re_set()
-                
+                app.email = 0
                 res = jsonify({
-                    "fulfillmentText": "QUIZ ENDED.--> Your total score is {} out of 5. Do you want to change lesson, or select subject?".format(score),
+                    "fulfillmentText": "QUIZ ENDED-->Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
                     "fulfillmentMessages": [
                         {
                             "text": {
@@ -329,7 +330,7 @@ def food():
                                 "items": [
                                     {
                                         "simpleResponse": {
-                                            "textToSpeech": "QUIZ ENDED. --> Your total score is {} out of 5. Do you want to change lesson or select subject? ".format(score),
+                                            "textToSpeech": "QUIZ ENDED-->Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
                                         }
                                     }
                                 ],
