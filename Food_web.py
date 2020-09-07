@@ -151,7 +151,7 @@ def food():
                     {
                         "text": {
                             "text": [
-                                op1 + "~" + op2 + "~" + op3 + "~" + op4,
+                                op1 + ", " + op2 + ", " + op3 + ", " + op4 + ".",
                             ]
                         }
                     }
@@ -164,6 +164,20 @@ def food():
                                 {
                                     "simpleResponse": {
                                         "textToSpeech": Q1
+                                    }
+                                },
+                                 {
+                                    "text": {
+                                        "text": [
+                                            "The options are :",
+                                        ]
+                                    }
+                                },
+                                {
+                                    "text": {
+                                        "text": [
+                                            op1 + ", " + op2 + ", " + op3 + ", " + op4 + ".",
+                                        ]
                                     }
                                 }
                             ],
@@ -245,7 +259,7 @@ def food():
                         {
                             "text": {
                                 "text": [
-                                    op1 + "~" + op2 + "~" + op3 + "~" + op4,
+                                    op1 + ", " + op2 + ", " + op3 + ", " + op4 + ".",
                                 ]
                             }
                         },
@@ -269,7 +283,7 @@ def food():
                                     },
                                     {
                                         "simpleResponse": {
-                                            "textToSpeech": op1 + "|*|" + op2 + "|*|" + op3 + "|*|" + op4
+                                            "textToSpeech": op1 + ", " + op2 + ", " + op3 + ", " + op4 + "."
                                         }
                                     }
                                 ],
