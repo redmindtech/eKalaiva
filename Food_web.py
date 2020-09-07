@@ -107,8 +107,8 @@ def food():
                         "parameters": {
                             "username": user_array(1).capitalize()
                     }
-                }
-
+                    }
+                    }
             else:
                 bot_reply = {
                     "fulfillmentText": "You have to be a registered user to login",
