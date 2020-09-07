@@ -48,9 +48,7 @@ def query2(questions):
     app.secret_key += 1
     i = app.secret_key
     if i < 5:
-        print("que--",que)
         que = ''.join(questions[i])
-        print("que--",que)
         return que
     else:
         end = app.secret_score
@@ -92,7 +90,6 @@ def query(quiz):
         for row in Q:
             myList.append(row[0])
             myList1.append(row[1])
-
         return myList, myList1
 
     except mysql.Error as err:
