@@ -191,7 +191,8 @@ def re_set():
     app.secret_key = 0
     app.secret_code = 0
     app.secret_score = 0
-    
+    app.email=0
+
 
 if __name__ == "__main__":
     main()
