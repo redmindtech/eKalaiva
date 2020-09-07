@@ -303,7 +303,7 @@ def food():
                 course.re_set()
                 app.email = 0
                 res = jsonify({
-                    "fulfillmentText": "QUIZ ENDED-->Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
+                    "fulfillmentText": "QUIZ ENDED.--> Your total score is {} out of 5. Do you want to change lesson, or select subject?".format(score),
                     "fulfillmentMessages": [
                         {
                             "text": {
@@ -327,7 +327,7 @@ def food():
                                 "items": [
                                     {
                                         "simpleResponse": {
-                                            "textToSpeech": "QUIZ ENDED-->Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
+                                            "textToSpeech": "QUIZ ENDED. --> Your total score is {} out of 5. Do you want to change lesson or select subject? ".format(score),
                                         }
                                     }
                                 ],
