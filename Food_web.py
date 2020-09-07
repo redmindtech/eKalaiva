@@ -120,6 +120,7 @@ def food():
                 return res
 
         elif q_name != "":
+            print("control is qname")
             app.secret_key = q_name
             quiz = ''.join(app.secret_key)
             # First question from DB
@@ -194,7 +195,7 @@ def food():
             })
             return res
         elif ans != "":
-            print("control is here")
+            print("control is ans")
             print(app.secret_key)
             quiz = ''.join(app.secret_key)
             print(quiz)
@@ -299,7 +300,7 @@ def food():
                     }
                 })
             else:
-                print("control is here")
+                print("control is final")
                 course.re_set()
                 
                 res = jsonify({
