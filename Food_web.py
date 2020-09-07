@@ -161,25 +161,16 @@ def food():
                         "expectUserResponse": True,
                         "richResponse": {
                             "items": [
-                                {
-                                    "simpleResponse": {
-                                        "textToSpeech": Q1
-                                    }
-                                },
                                  {
-                                    "text": {
-                                        "text": [
-                                            "The options are :",
-                                        ]
+                                        "simpleResponse": {
+                                            "textToSpeech": Q1
+                                        }
+                                    },
+                                    {
+                                        "simpleResponse": {
+                                            "textToSpeech": op1 + ", " + op2 + ", " + op3 + ", " + op4 + "."
+                                        }
                                     }
-                                },
-                                {
-                                    "text": {
-                                        "text": [
-                                            op1 + ", " + op2 + ", " + op3 + ", " + op4 + ".",
-                                        ]
-                                    }
-                                }
                             ],
                             "suggestions": [
                                 {
