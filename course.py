@@ -29,6 +29,7 @@ def email(e_mail):
         print("Connected to:", db_connection.get_server_info())
         mycursor = db_connection.cursor()
         tr = """select username from x8ur_user where email=%s""";
+        print("tr -- ", tr)
         username = ''
         mycursor.execute(tr, (e_mail,))
         username = mycursor.fetchone()
