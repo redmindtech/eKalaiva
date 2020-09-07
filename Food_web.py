@@ -299,6 +299,7 @@ def food():
                         }
                     }
                 })
+                return res
             else:
                 print("control is final")
                 course.re_set()
