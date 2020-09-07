@@ -49,6 +49,7 @@ def query2(questions):
     i = app.secret_key
     if i < 5:
         que = ''.join(questions[i])
+        que = ''.join('. ')
         return que
     else:
         end = app.secret_score
