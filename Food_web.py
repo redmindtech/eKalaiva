@@ -97,15 +97,14 @@ def food():
             #if email1 is not None:
                
                #print(app.email)
-            if email1 is not None and email1.find("Are you Ready for the Quiz?"):
+            if email1 is not None:
                 app.email = 1
-                user_array = email1.split("?")
                 bot_reply = {
                     "fulfillmentText": email1,
                     "followupEventInput": {
                         "name": "6_Subjects",
                         "parameters": {
-                            "username": user_array(1).capitalize()
+                            "username": email1.capitalize()
                     }
                     }
                     }
