@@ -50,6 +50,7 @@ def food():
         #name = value.get('parameters')
         if (req.get("queryResult").get("intent").get("displayName") == "welcome - next"):
             emailid = req.get("queryResult").get("parameters").get("email")
+            app.email = 0
             print(emailid)
         if (req.get("queryResult").get("intent").get("displayName") == "ans_code"):
             ans = req.get("queryResult").get("parameters").get("option")
@@ -58,10 +59,10 @@ def food():
                 bot_reply = {
                     "fulfillmentText": "change_lesson",
                     "followupEventInput": {
-                        "name": "6_Science_Lesson",
-
+                        "name": "6_Science_Lesson"
                     }
                 }
+                print("bot_reply--", bot_reply)
                 res = jsonify(bot_reply)
                 return res
 
@@ -69,10 +70,10 @@ def food():
                 bot_reply = {
                     "fulfillmentText": "select_subject",
                     "followupEventInput": {
-                        "name": "6_Subjects",
-
+                        "name": "6_Subjects"
                     }
                 }
+                print("bot_reply--", bot_reply)
                 res = jsonify(bot_reply)
                 return res
 
@@ -94,9 +95,6 @@ def food():
             email1 = course.email(e_mail)
             print("result--", email1)
             # print(app.email)
-            #if email1 is not None:
-               
-               #print(app.email)
             if email1 is not None:
                 app.email = 1
                 bot_reply = {
@@ -105,9 +103,10 @@ def food():
                         "name": "6_Subjects",
                         "parameters": {
                             "username": email1.capitalize()
+                        }
                     }
-                    }
-                    }
+                }
+
             else:
                 bot_reply = {
                     "fulfillmentText": "You have to be a registered user to login",
@@ -450,14 +449,14 @@ def food():
             print(bot_reply)
 
         elif current_reply == "back_to_lesson":
-            print("current-intent--", current_intent)
-            str_array = current_intent.split("_")
-            current_intent = str_array[0] + "_" + str_array[1] + "_" + str_array[2] + "_" + str_array[3]
+            #print("current-intent--", current_intent)
+            #str_array = current_intent.split("_")
+            #current_intent = str_array[0] + "_" + str_array[1] + "_" + str_array[2] + "_" + str_array[3]
             # current_intent = current_intent[:-6]
-            print("current-intent--", current_intent)
+            #print("current-intent--", current_intent)
             bot_reply = {
                 "followupEventInput": {
-                    "name": current_intent,
+                    "name": "6_Science_Lesson_1", #current_intent,
                     "data": {
                         "user-answer": next_intent + "." + current_reply
                     }
