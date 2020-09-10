@@ -48,7 +48,7 @@ def food():
         q_name=""
         close=""
         #name = value.get('parameters')
-        if (req.get("queryResult").get("intent").get("displayName") == "welcome - next"):
+        if (req.get("queryResult").get("intent").get("displayName") == "welcome - next" or req.get("queryResult").get("intent").get("displayName") == "Get_Email"):
             emailid = req.get("queryResult").get("parameters").get("email")
             app.email = 0
             print(emailid)
