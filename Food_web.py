@@ -100,7 +100,7 @@ def food():
                 bot_reply = {
                     "fulfillmentText": email1,
                     "followupEventInput": {
-                        "name": "6_Subjects",
+                        "name": "6_Welcome_Subjects",
                         "parameters": {
                             "username": email1.capitalize()
                         }
