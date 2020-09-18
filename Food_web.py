@@ -92,8 +92,8 @@ def food():
         if (emailid != "") and (app.email == 0):
 
             e_mail = ''.join(emailid)
-            #email1 = course.email(e_mail)
-            email1 = "meetarun"
+            email1 = course.email(e_mail)
+            #email1 = "meetarun"
             print("result--", email1)
             
             # print(app.email)
