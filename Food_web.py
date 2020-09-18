@@ -143,8 +143,9 @@ def food():
                             "text": [
                                 "COOL, Let's refresh with a simple quiz.",
                             ]
-                        }
+                        } 
                     },
+                    {
                         "text": {
                             "text": [
                                 Q1,
