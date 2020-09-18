@@ -141,7 +141,7 @@ def food():
                     {
                         "text": {
                             "text": [
-                                "COOL, Let's refresh with a simple quiz.",
+                                "COOL, Let's get refreshed with a simple quiz.",
                             ]
                         } 
                     },
@@ -172,6 +172,11 @@ def food():
                         "expectUserResponse": True,
                         "richResponse": {
                             "items": [
+                                {
+                                    "simpleResponse": {
+                                        "textToSpeech": "COOL, Let's get refreshed with a simple quiz."
+                                    }
+                                },
                                 {
                                     "simpleResponse": {
                                         "textToSpeech": Q1
@@ -280,7 +285,7 @@ def food():
                                     },
                                     {
                                         "simpleResponse": {
-                                            "textToSpeech": op1 + ", " + op2 + ", " + op3 + ", " + op4 + "."
+                                            "textToSpeech": "The options are ," + op1 + ", " + op2 + ", " + op3 + ", " + op4 + "."
                                         }
                                     }
                                 ],
