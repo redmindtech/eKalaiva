@@ -141,6 +141,12 @@ def food():
                     {
                         "text": {
                             "text": [
+                                "COOL, Let's refresh with a simple quiz.",
+                            ]
+                        }
+                    },
+                        "text": {
+                            "text": [
                                 Q1,
                             ]
                         }
@@ -171,19 +177,11 @@ def food():
                                     }
                                 },
                                 {
-                                    "text": {
-                                        "text": [
-                                            "The options are :",
-                                        ]
-                                    }
-                                },
-                                {
-                                    "text": {
-                                        "text": [
-                                            op1 + ", " + op2 + ", " + op3 + ", " + op4 + ".",
-                                        ]
+                                    "simpleResponse": {
+                                        "textToSpeech": "The options are ," + op1 + ", " + op2 + ", " + op3 + ", " + op4 + "."
                                     }
                                 }
+
                             ],
                             "suggestions": [
                                 {
@@ -309,12 +307,12 @@ def food():
                 course.re_set()
                 app.email = 0
                 res = jsonify({
-                    "fulfillmentText": "QUIZ ENDED-->Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
+                    "fulfillmentText": "QUIZ ENDED. Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
                     "fulfillmentMessages": [
                         {
                             "text": {
                                 "text": [
-                                    "QUIZ ENDED-->Your total score is {} out of 5".format(score),
+                                    "QUIZ ENDED. Your total score is {} out of 5".format(score),
                                 ]
                             }
                         },
@@ -333,7 +331,7 @@ def food():
                                 "items": [
                                     {
                                         "simpleResponse": {
-                                            "textToSpeech": "QUIZ ENDED-->Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
+                                            "textToSpeech": "QUIZ ENDED. Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
                                         }
                                     }
                                 ],
