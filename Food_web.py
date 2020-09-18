@@ -174,12 +174,7 @@ def food():
                             "items": [
                                 {
                                     "simpleResponse": {
-                                        "textToSpeech": "COOL, Let's get refreshed with a simple quiz."
-                                    }
-                                },
-                                {
-                                    "simpleResponse": {
-                                        "textToSpeech": Q1
+                                        "textToSpeech": "COOL, Let's get refreshed with a simple quiz." + Q1
                                     }
                                 },
                                 {
