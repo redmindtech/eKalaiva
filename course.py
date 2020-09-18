@@ -12,7 +12,7 @@ app.secret_key = 0
 app.secret_code = 0
 app.secret_score = 0
 # enter your server IP address/domain name
-HOST = "ekalaiva-ai.com"  # or "domain.com"
+HOST = "redmindtechnologies.com"  # or "domain.com"
 # database name, if you want just to connect to MySQL server, leave it empty
 DATABASE = "u852023448_uwyeF"
 # this is the user you create
