@@ -34,6 +34,7 @@ def food():
 
         current_reply = req.get("queryResult").get("action")
         print("current_reply done")
+
         current_intent = req.get("queryResult").get("outputContexts")[0].get("parameters").get("current-intent")
         print("current_intent done")
 
@@ -81,21 +82,22 @@ def food():
 
         if (req.get("queryResult").get("intent").get("displayName") == "Quiz"):
             ready = req.get("queryResult").get("parameters").get("ready")
+            q_name = req.get("queryResult").get("outputContexts")[6].get("parameters").get("current-intent") + "_Quiz"
+            print("quiz name--" , q_name)
+            #q_name = "Science Quiz"
             print(ready)
         if (req.get("queryResult").get("intent").get("displayName") == "Exit"):
             close = req.get("queryResult").get("parameters").get("exit")
             print(close)
-        if (req.get("queryResult").get("intent").get("displayName") == "Quiz"):
-            q_name = req.get("queryResult").get("parameters").get("quizname")
-            print(q_name)
+        #if (req.get("queryResult").get("intent").get("displayName") == "Quiz"):
+         #   q_name = req.get("queryResult").get("parameters").get("quizname")
+          #  print(q_name)
 
         if (emailid != "") and (app.email == 0):
 
             e_mail = ''.join(emailid)
             email1 = course.email(e_mail)
-            #email1 = "meetarun"
             print("result--", email1)
-            
             # print(app.email)
             if email1 is not None:
                 app.email = 1
@@ -141,13 +143,6 @@ def food():
                     {
                         "text": {
                             "text": [
-                                "COOL, Let's get refreshed with a simple quiz.",
-                            ]
-                        } 
-                    },
-                    {
-                        "text": {
-                            "text": [
                                 Q1,
                             ]
                         }
@@ -174,7 +169,7 @@ def food():
                             "items": [
                                 {
                                     "simpleResponse": {
-                                        "textToSpeech": "Let's get refreshed with a simple quiz. " + Q1
+                                        "textToSpeech": Q1
                                     }
                                 },
                                 {
@@ -207,6 +202,8 @@ def food():
             print("control is ans")
             quiz = ''.join(app.secret_key)
             qu, answer = course.query(quiz)
+            print("qu--",qu)
+            print("ans--",ans)
             app.secret_ques = qu
             app.secret_ans = answer
             questions = app.secret_ques
@@ -280,7 +277,7 @@ def food():
                                     },
                                     {
                                         "simpleResponse": {
-                                            "textToSpeech": "The options are ," + op1 + ", " + op2 + ", " + op3 + ", " + op4 + "."
+                                            "textToSpeech": "The options are, " + op1 + ", " + op2 + ", " + op3 + ", " + op4 + "."
                                         }
                                     }
                                 ],
@@ -308,12 +305,12 @@ def food():
                 course.re_set()
                 app.email = 0
                 res = jsonify({
-                    "fulfillmentText": "QUIZ ENDED. Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
+                    "fulfillmentText": "QUIZ ENDED-->Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
                     "fulfillmentMessages": [
                         {
                             "text": {
                                 "text": [
-                                    "QUIZ ENDED. Your total score is {} out of 5".format(score),
+                                    "QUIZ ENDED-->Your total score is {} out of 5".format(score),
                                 ]
                             }
                         },
@@ -332,7 +329,7 @@ def food():
                                 "items": [
                                     {
                                         "simpleResponse": {
-                                            "textToSpeech": "QUIZ ENDED. Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
+                                            "textToSpeech": "QUIZ ENDED-->Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
                                         }
                                     }
                                 ],
@@ -354,17 +351,18 @@ def food():
             course.re_set()
 
 
+        print("I AM HERE")
+        if (current_intent.endswith("Video") == 0):
+            if current_intent.endswith("Keypoints"):
+                next_intent = current_intent
+                print("Keypoints executed")
 
-        if current_intent.endswith("Keypoints"):
-            next_intent = current_intent
-            print("Keypoints executed")
-
-        else:
-            next_index = str(int(current_intent[-1:]) + 1)
-            print("next_index---", next_index)
-            next_intent = current_intent[:-1] + next_index
-        print("next intent - ", next_intent)
-
+            else:
+                next_index = str(int(current_intent[-1:]) + 1)
+                print("next_index---", next_index)
+                next_intent = current_intent[:-1] + next_index
+                print("next intent - ", next_intent)
+        print("I am after keypoints check")
         if current_reply == "Next_Lesson":
             print("came here")
             str_array = current_intent.split("_")
@@ -381,6 +379,65 @@ def food():
                     }
                 }
             }
+        print("I am here in Watch video")
+        if current_reply == "Watch_Video":
+            print("came here")
+            str_array = current_intent.split("_")
+            if(len(str_array) >= 4):
+                current_lesson = str_array[0] + "_" + str_array[1] + "_" + str_array[2] + "_" + str_array[3]
+                current_intent = str_array[0] + "_" + str_array[1] + "_" + str_array[2] + "_" + str_array[3] + "_Video"
+            link,image = course.getvideo (current_lesson)
+            print("link--",link)
+            res = jsonify({
+                    "fulfillmentText": "Food is needed for all living organisms. Click here to watch the video",
+                    "fulfillmentMessages": [
+                        {
+                        "platform": "ACTIONS_ON_GOOGLE",
+                        "simpleResponses": {
+                        "simpleResponses": [
+                             {
+                            "textToSpeech": "Food is needed for all living organisms. Click here to watch the video"
+                            }
+                            ]
+                         }
+                         },
+                         {
+                        "platform": "ACTIONS_ON_GOOGLE",
+                        "basicCard": {
+                            "title": "food",
+                            "image": {
+                            "imageUri": image,
+                            "accessibilityText": "food"
+                            },
+                            "buttons": [
+                            {
+                            "title": "Click here to watch video",
+                             "openUriAction": {
+                            "uri": link
+                             }
+                                }
+                            ]
+                         }
+                         },
+                        {
+                        "platform": "ACTIONS_ON_GOOGLE",
+                        "suggestions": {
+                        "suggestions": [
+                            {
+                            "title": "change_lesson"
+                            },
+                            {
+                            "title": "select_subject"
+                            },
+                            {
+                            "title": "back to lesson"
+                            }
+                            ]
+                        }
+                        }]
+                    })
+            return res
+
         if current_reply == "start_lesson":
             # this is to find whether the lesson is started
             str_array = current_intent.split("_")
@@ -393,20 +450,6 @@ def food():
                     current_intent = current_intent[:-10]
                 else:
                     current_intent = current_intent[:-2]
-            # elif current_intent == "6_Science_Lesson_1_6":
-            #   current_intent= current_intent[:-2]
-            # elif current_intent == "6_Science_Lesson_2_7":
-            #   current_intent = current_intent[:-2]
-            # elif current_intent == "6_Social_Lesson_2_8":
-            #   current_intent = current_intent[:-2]
-            # elif current_intent == "6_Social_Lesson_1_8":
-            #   current_intent = current_intent[:-2]
-
-            # elif current_intent.find("Keypoints"):
-            #   current_intent= current_intent[:-10]
-            # else:
-
-            # current_intent = current_intent + "_1"
             print(current_intent)
             bot_reply = {
                 "followupEventInput": {
@@ -416,18 +459,7 @@ def food():
                     }
                 }
             }
-        elif current_reply == "Watch_video":
-            current_intent = current_intent + "_Video"
-            bot_reply = {
-                "followupEventInput": {
-                    "name": current_intent,
-                    "data": {
-                        "user-answer": current_intent + "." + current_reply
-                    }
-                }
-            }
-            print(bot_reply)
-        elif current_reply == "repeat":
+        if current_reply == "repeat":
 
             bot_reply = {
                 "followupEventInput": {
@@ -438,7 +470,7 @@ def food():
                 }
             }
             print(bot_reply)
-        elif current_reply == "next_topic":
+        if current_reply == "next_topic":
             bot_reply = {
                 "followupEventInput": {
                     "name": next_intent,
@@ -448,35 +480,35 @@ def food():
                 }
             }
             print(bot_reply)
-
-        elif current_reply == "back_to_lesson":
-            #print("current-intent--", current_intent)
-            #str_array = current_intent.split("_")
-            #current_intent = str_array[0] + "_" + str_array[1] + "_" + str_array[2] + "_" + str_array[3]
-            # current_intent = current_intent[:-6]
-            #print("current-intent--", current_intent)
+        print("I am here in back to lesson--", current_reply)
+        if current_reply == "back_to_lesson":
+            print("current-intent--", current_intent)
+            str_array = current_intent.split("_")
+            if (len(str_array) >= 4):
+                current_intent = str_array[0] + "_" + str_array[1] + "_" + str_array[2] + "_" + str_array[3]
             bot_reply = {
                 "followupEventInput": {
-                    "name": "6_Science_Lesson_1", #current_intent,
-                    "data": {
-                        "user-answer": next_intent + "." + current_reply
-                    }
+                    "name": current_intent
+                }
+            }
+            print(bot_reply)
+        if current_reply == "change_lesson" or current_reply == "select_lesson":
+            print("current-intent--", current_intent)
+            str_array = current_intent.split("_")
+            current_intent = str_array[0] + "_" + str_array[1] + "_" + str_array[2]
+            print("after change--", current_intent)
+            bot_reply = {
+                "followupEventInput": {
+                    "name": current_intent
                 }
             }
             print(bot_reply)
 
-        elif current_reply == "Keypoints":
+        if current_reply == "Keypoints":
             str_array = current_intent.split("_")
-            if len(str_array) == 5:
-                next_index = str(int(str_array(3) + 1))
-                str_array = str_array.remove(str_array(4))
-                print("New array--", str_array)
-                for ele in str_array:
-                    current_intent += ele
-                    current_intent += "_"
-                print("next_index---", next_index)
-                current_intent = current_intent[:-1]
-            current_intent = current_intent + "_Keypoints"
+            if (len(str_array) >= 4):
+                current_intent = str_array[0] + "_" + str_array[1] + "_" + str_array[2] + "_" + str_array[3] + "_Keypoints"
+            print("Keypoints--",current_intent)
             bot_reply = {
                 "followupEventInput": {
                     "name": current_intent,
