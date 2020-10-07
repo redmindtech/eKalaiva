@@ -93,8 +93,10 @@ def food():
         #if (req.get("queryResult").get("intent").get("displayName") == "Quiz"):
          #   q_name = req.get("queryResult").get("parameters").get("quizname")
           #  print(q_name)
+        
+        #to display name of all lessons. used this so that displaying many lessons will be supported for botcopy also
         displayintent = req.get("queryResult").get("intent").get("displayName")
-        if (displayintent == "6_English_Lesson" or displayintent == "6_Science_Lesson" or displayintent == "6_Social_Lesson" or displayintent == "6_Civics_Lesson" or displayintent == "6_Geography_Lesson" ):
+        if (displayintent == "6_English_Lesson" or displayintent == "6_Geography_Lesson" or displayintent == "6_Science_Lesson" or displayintent == "6_Social_Lesson" or displayintent == "6_Civics_Lesson" or displayintent == "6_Geography_Lesson" ):
             print("I am calling lesson file")
             res = lesson.getlesson(displayintent)
             return res
