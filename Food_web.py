@@ -132,6 +132,7 @@ def food():
 
         elif q_name != "":
             app.secret_key = q_name
+            print("app.secret_key assigned--", app.secret_key)
             quiz = ''.join(app.secret_key)
             # First question from DB
             # second = course.main(quiz, i=1)
@@ -234,7 +235,7 @@ def food():
             return res
         elif ans != "":
             print("control is ans")
-            print("Error starts")
+            print("Error starts--",app.secret_key)
             quiz = ''.join(app.secret_key)
             print("Error ends")
             print("quiz app.secret_key --",quiz)
