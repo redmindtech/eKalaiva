@@ -488,7 +488,7 @@ def food():
                             "title": "select_subject"
                             },
                             {
-                            "title": "back to lesson"
+                            "title": "start lesson"
                             }
                             ]
                         }
