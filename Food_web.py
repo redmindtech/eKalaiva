@@ -234,7 +234,9 @@ def food():
             return res
         elif ans != "":
             print("control is ans")
+            print("Error starts")
             quiz = ''.join(app.secret_key)
+            print("Error ends")
             print("quiz app.secret_key --",quiz)
             qu, options, answer = course.query(quiz)
             print("qu--",qu)
