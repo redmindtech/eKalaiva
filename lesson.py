@@ -1,4 +1,8 @@
+import mysql.connector
+import mysql.connector as mysql
 from flask import Flask, session, redirect, url_for, request
+# from flask import Flask
+# import tn_db_connection
 import json
 import os
 from flask import Flask, request, jsonify
@@ -155,12 +159,12 @@ def getlesson(grade):
 
     if (grade == "6_English_Lesson"):
         res = jsonify({
-                "fulfillmentText": "Hi, I know you all love to learn English stories and Poems. Select the lessons to start with, 1. Patrick's Homework.. 2. How Dog Found New Master.. 3. Taro's Reward.. 4. Indo-American Space Woman.. 5. A Different School.. 6. Who I Am.. 7. Fair Play.. 8. A Game of Chance.. 9. Desert Animal.. 10. The Banyan Tree.. 11. A HOUSE A HOME.. 12. THE KITE.. 13. THE QUARREL.. 14. Beauty.. 15. Where do the teachers go.. 16. The Wonderful words.. 17. Vocation.. 18. What if",
+                "fulfillmentText": "Hi, I know you all love to learn English stories and Poems. Select the lessons to start with., 1. Patrick's Homework.. 2. How Dog Found New Master.. 3. Taro's Reward.. 4. Indo-American Space Woman.. 5. A Different School.. 6. Who I Am.. 7. Fair Play.. 8. A Game of Chance.. 9. Desert Animal.. 10. The Banyan Tree.. 11. A HOUSE A HOME.. 12. THE KITE.. 13. THE QUARREL.. 14. Beauty.. 15. Where do the teachers go.. 16. The Wonderful words.. 17. Vocation.. 18. What if",
                 "fulfillmentMessages": [
                     {
                         "text": {
                             "text": [
-                                "Hi, I know you all love to learn English stories and Poems. Select the lessons to start with, 1. Patrick's Homework.. 2. How Dog Found New Master.. 3. Taro's Reward.. 4. Indo-American Space Woman.. 5. A Different School.. 6. Who I Am.. 7. Fair Play.. 8. A Game of Chance.. 9. Desert Animal.. 10. The Banyan Tree.. 11. A HOUSE A HOME.. 12. THE KITE.. 13. THE QUARREL.. 14. Beauty.. 15. Where do the teachers go.. 16. The Wonderful words.. 17. Vocation.. 18. What if",
+                                "Hi, I know you all love to learn English stories and Poems. Select the lessons to start with., 1. Patrick's Homework.. 2. How Dog Found New Master.. 3. Taro's Reward.. 4. Indo-American Space Woman.. 5. A Different School.. 6. Who I Am.. 7. Fair Play.. 8. A Game of Chance.. 9. Desert Animal.. 10. The Banyan Tree.. 11. A HOUSE A HOME.. 12. THE KITE.. 13. THE QUARREL.. 14. Beauty.. 15. Where do the teachers go.. 16. The Wonderful words.. 17. Vocation.. 18. What if",
                             ]
                         }
                     }
@@ -172,7 +176,7 @@ def getlesson(grade):
                             "items": [
                                 {
                                     "simpleResponse": {
-                                        "textToSpeech": "Hi, I know you all love to learn English stories and Poems. Select the lessons to start with, 1. Patrick's Homework.. 2. How Dog Found New Master.. 3. Taro's Reward.. 4. Indo-American Space Woman.. 5. A Different School.. 6. Who I Am.. 7. Fair Play.. 8. A Game of Chance.. 9. Desert Animal.. 10. The Banyan Tree.. 11. A HOUSE A HOME.. 12. THE KITE.. 13. THE QUARREL.. 14. Beauty.. 15. Where do the teachers go.. 16. The Wonderful words.. 17. Vocation.. 18. What if"
+                                        "textToSpeech": "Hi, I know you all love to learn English stories and Poems. Select the lessons to start with., 1. Patrick's Homework.. 2. How Dog Found New Master.. 3. Taro's Reward.. 4. Indo-American Space Woman.. 5. A Different School.. 6. Who I Am.. 7. Fair Play.. 8. A Game of Chance.. 9. Desert Animal.. 10. The Banyan Tree.. 11. A HOUSE A HOME.. 12. THE KITE.. 13. THE QUARREL.. 14. Beauty.. 15. Where do the teachers go.. 16. The Wonderful words.. 17. Vocation.. 18. What if"
                                     }
                                 }
                             ]
