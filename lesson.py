@@ -1,8 +1,4 @@
-import mysql.connector
-import mysql.connector as mysql
 from flask import Flask, session, redirect, url_for, request
-# from flask import Flask
-# import tn_db_connection
 import json
 import os
 from flask import Flask, request, jsonify
@@ -247,12 +243,12 @@ def getlesson(grade):
 
     if (grade == "6_Civics_Lesson"):
         res = jsonify({
-                "fulfillmentText": "Hi, Greetings! Ready to learn Civics lessons. Select the lessons to start with,. 11. Understanding diversity.. 12. Diversity and discrimination.. 13. What is Government.. 14. Key elements of a democratic Government.. 15. Panchayat Raj.. 16. Rural administration.. 17. Urban Administration.. 18. Rural Livelihoods.. 19. Urban Livelihoods",
+                "fulfillmentText": "Hi, Greetings! Ready to learn Civics lessons. Select the lessons to start with,. 1. Understanding diversity.. 2. Diversity and discrimination.. 3. What is Government.. 4. Key elements of a democratic Government.. 5. Panchayat Raj.. 6. Rural administration.. 7. Urban Administration.. 8. Rural Livelihoods.. 9. Urban Livelihoods",
                 "fulfillmentMessages": [
                     {
                         "text": {
                             "text": [
-                                "Hi, Greetings! Ready to learn Civics lessons. Select the lessons to start with,. 11. Understanding diversity.. 12. Diversity and discrimination.. 13. What is Government.. 14. Key elements of a democratic Government.. 15. Panchayat Raj.. 16. Rural administration.. 17. Urban Administration.. 18. Rural Livelihoods.. 19. Urban Livelihoods",
+                                "Hi, Greetings! Ready to learn Civics lessons. Select the lessons to start with,. 1. Understanding diversity.. 2. Diversity and discrimination.. 3. What is Government.. 4. Key elements of a democratic Government.. 5. Panchayat Raj.. 6. Rural administration.. 7. Urban Administration.. 8. Rural Livelihoods.. 9. Urban Livelihoods",
                             ]
                         }
                     }
@@ -264,7 +260,7 @@ def getlesson(grade):
                             "items": [
                                 {
                                     "simpleResponse": {
-                                        "textToSpeech": "Hi, Greetings! Ready to learn Civics lessons. Select the lessons to start with,. 11. Understanding diversity.. 12. Diversity and discrimination.. 13. What is Government.. 14. Key elements of a democratic Government.. 15. Panchayat Raj.. 16. Rural administration.. 17. Urban Administration.. 18. Rural Livelihoods.. 19. Urban Livelihoods"
+                                        "textToSpeech": "Hi, Greetings! Ready to learn Civics lessons. Select the lessons to start with,. 1. Understanding diversity.. 2. Diversity and discrimination.. 3. What is Government.. 4. Key elements of a democratic Government.. 5. Panchayat Raj.. 6. Rural administration.. 7. Urban Administration.. 8. Rural Livelihoods.. 9. Urban Livelihoods"
                                     }
                                 }
                             ]
@@ -305,6 +301,65 @@ def getlesson(grade):
                     }
                 }
             })
+
+    if (grade == "6_Geography_Lesson"):
+         res = jsonify({
+                "fulfillmentText": "Hi, Greetings! Ready to learn Geography lessons. Select the lessons to start with,. 1. Earth in Solar system.. 2. Latitudes and Longitudes.. 3. Motions of Earth.. 4. Maps.. 5. Major domains of Earth.. 6. Major Landforms of Earth.. 7. Our country, India.. 8. India, Climate and WildLife",
+                "fulfillmentMessages": [
+                    {
+                        "text": {
+                            "text": [
+                                "Hi, Greetings! Ready to learn Geography lessons. Select the lessons to start with,. 1. Earth in Solar system.. 2. Latitudes and Longitudes.. 3. Motions of Earth.. 4. Maps.. 5. Major domains of Earth.. 6. Major Landforms of Earth.. 7. Our country, India.. 8. India, Climate and WildLife",
+                            ]
+                        }
+                    }
+                ],
+                "payload": {
+                    "google": {
+                        "expectUserResponse": True,
+                        "richResponse": {
+                            "items": [
+                                {
+                                    "simpleResponse": {
+                                        "textToSpeech": "Hi, Greetings! Ready to learn Geography lessons. Select the lessons to start with,. 1. Earth in Solar system.. 2. Latitudes and Longitudes.. 3. Motions of Earth.. 4. Maps.. 5. Major domains of Earth.. 6. Major Landforms of Earth.. 7. Our country, India.. 8. India, Climate and WildLife"
+                                    }
+                                }
+                            ]
+                            ,
+                            "suggestions": [
+                                {
+                                    "title": "Earth in Solar system"
+                                },
+                                {
+                                    "title": "Latitudes and Longitudes"
+                                },
+                                {
+                                    "title": "Motions of Earth"
+                                },
+                                {
+                                    "title": "Maps"
+                                },
+                                {
+                                    "title": "Major domains of Earth"
+                                },
+                                {
+                                    "title": "Major landforms of earth"
+                                },
+                                {
+                                    "title": "Our Country, India"
+                                },
+                                {
+                                    "title": "India, Climate and WildLife"
+                                },
+                                {
+                                    "title": "Select Subject"
+                                }
+                            ]
+                        }
+                    }
+                }
+            })
+
     return res
 
 if __name__ == "__main__":
