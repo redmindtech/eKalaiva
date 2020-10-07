@@ -11,6 +11,7 @@ from flask import make_response
 from flask import jsonify
 
 import course
+import lesson
 
 app = Flask(__name__)
 app.secret_key = 0
@@ -92,6 +93,11 @@ def food():
         #if (req.get("queryResult").get("intent").get("displayName") == "Quiz"):
          #   q_name = req.get("queryResult").get("parameters").get("quizname")
           #  print(q_name)
+        displayintent = req.get("queryResult").get("intent").get("displayName")
+        if (displayintent == "6_English_Lesson" or displayintent == "6_Science_Lesson" or displayintent == "6_Social_Lesson" or displayintent == "6_Civics_Lesson" or displayintent == "6_Geography_Lesson" ):
+            print("I am calling lesson file")
+            res = lesson.getlesson(displayintent)
+            return res
 
         if (emailid != "") and (app.email == 0):
 
@@ -128,12 +134,40 @@ def food():
             app.secret_key = q_name
             quiz = ''.join(app.secret_key)
             # First question from DB
-            second = course.main(quiz, i=1)
-            s = ''.join(second)
-            q1, opt1, opt2, opt3, opt4 = course.ques_split(s)
+            # second = course.main(quiz, i=1)
+            # s = ''.join(second)
+            # q1, opt1, opt2, opt3, opt4 = course.ques_split(s)
+            # print("q1--",q1)
+            # Q1 = ''.join(q1)
+            # op1 = ''.join(opt1)
+            # op2 = ''.join(opt2)
+            # op3 = ''.join(opt3)
+            # op4 = ''.join(opt4)
+            firstques, firstquesoptions = course.main(quiz, i=1)
+            
+            print('firstquesoptions --', firstquesoptions)
+            q1 = firstques
             print("q1--",q1)
             Q1 = ''.join(q1)
-            op1 = ''.join(opt1)
+
+            opt1 = firstquesoptions[0]
+            opt2 = firstquesoptions[1]
+            opt3 = firstquesoptions[2]
+            opt4 = firstquesoptions[3]
+            if (len(opt1) > 25):
+                opt1 = opt1 [ 0:24 ]
+            if (len(opt2) > 25):
+                opt2 = opt2  [ 0:24 ]
+            if (len(opt3) > 25):
+                opt3 = opt3 [ 0:24 ]
+            if (len(opt4) > 25):
+                opt4 = opt4  [ 0:24 ]
+
+            print("opt1--",opt1)
+            print("opt2--",opt2)
+            print("opt3--",opt3)
+            print("opt4--",opt4)
+            op1 = ''.join(opt1)            
             op2 = ''.join(opt2)
             op3 = ''.join(opt3)
             op4 = ''.join(opt4)
@@ -157,7 +191,7 @@ def food():
                     {
                         "text": {
                             "text": [
-                                op1 + ", " + op2 + ", " + op3 + ", " + op4 + ".",
+                                op1 + "; " + op2 + "; " + op3 + "; " + op4 + ";",
                             ]
                         }
                     }
@@ -174,7 +208,7 @@ def food():
                                 },
                                 {
                                     "simpleResponse": {
-                                        "textToSpeech": "The options are ," + op1 + ", " + op2 + ", " + op3 + ", " + op4 + "."
+                                        "textToSpeech": "The options are ," + op1 + "; " + op2 + "; " + op3 + "; " + op4 + "."
                                     }
                                 }
 
@@ -201,31 +235,50 @@ def food():
         elif ans != "":
             print("control is ans")
             quiz = ''.join(app.secret_key)
-            qu, answer = course.query(quiz)
+            print("quiz app.secret_key --",quiz)
+            qu, options, answer = course.query(quiz)
             print("qu--",qu)
-            print("ans--",ans)
+            print("answer from query--",answer)
             app.secret_ques = qu
             app.secret_ans = answer
             questions = app.secret_ques
             answers = app.secret_ans
             x = app.secret_key
             quiz = ''.join(x)
-            ques = course.query2(questions)
+            ques , opts = course.query2(questions,options)
             an = ans.title()
             an1 = ans.upper()
             an2 = ans.lower()
             an3 = ans.capitalize()
             reply, score = course.valid(ans, an, an1, an2, an3, answers)
+            print("Score in main--",score)
             if type(ques) is not int:
-                str1 = ''.join(ques)
+                #str1 = ''.join(ques)
                 str2 = ''.join(reply)
                 str3 = str(score)
-                q, o1, o2, o3, o4 = course.ques_split(str1)
-                Q1 = ''.join(q)
-                op1 = ''.join(o1)
-                op2 = ''.join(o2)
-                op3 = ''.join(o3)
-                op4 = ''.join(o4)
+                #q, o1, o2, o3, o4 = course.ques_split(str1)
+                print("ques---",ques)
+                Q1 = ''.join(ques)
+                opt1 = opts[0]
+                opt2 = opts[1]
+                opt3 = opts[2]
+                opt4 = opts[3]
+                if (len(opt1) > 25):
+                    opt1 = opt1[0:24]
+                if (len(opt2) > 25):
+                    opt2 = opt2[0:24]
+                if (len(opt3) > 25):
+                    opt3 = opt3[0:24]
+                if (len(opt4) > 25):
+                    opt4 = opt4[0:24]
+                print("opt1---",opt1)
+                print("opt2---",opt2)
+                print("opt3---",opt3)
+                print("opt4---",opt4)
+                op1 = ''.join(opt1)
+                op2 = ''.join(opt2)
+                op3 = ''.join(opt3)
+                op4 = ''.join(opt4)
                 res = jsonify({
                     "fulfillmentText": Q1,
                     "fulfillmentMessages": [
@@ -253,7 +306,7 @@ def food():
                         {
                             "text": {
                                 "text": [
-                                    op1 + "~" + op2 + "~" + op3 + "~" + op4,
+                                    op1 + "; " + op2 + "; " + op3 + "; " + op4,
                                 ]
                             }
                         },
@@ -277,7 +330,7 @@ def food():
                                     },
                                     {
                                         "simpleResponse": {
-                                            "textToSpeech": "The options are, " + op1 + ", " + op2 + ", " + op3 + ", " + op4 + "."
+                                            "textToSpeech": "The options are, " + op1 + "; " + op2 + "; " + op3 + "; " + op4 + "."
                                         }
                                     }
                                 ],
@@ -305,12 +358,12 @@ def food():
                 course.re_set()
                 app.email = 0
                 res = jsonify({
-                    "fulfillmentText": "QUIZ ENDED-->Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
+                    "fulfillmentText": "QUIZ ENDED. Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
                     "fulfillmentMessages": [
                         {
                             "text": {
                                 "text": [
-                                    "QUIZ ENDED-->Your total score is {} out of 5".format(score),
+                                    "QUIZ ENDED. Your total score is {} out of 5".format(score),
                                 ]
                             }
                         },
@@ -329,7 +382,7 @@ def food():
                                 "items": [
                                     {
                                         "simpleResponse": {
-                                            "textToSpeech": "QUIZ ENDED-->Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
+                                            "textToSpeech": "QUIZ ENDED. Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
                                         }
                                     }
                                 ],
@@ -362,6 +415,9 @@ def food():
                 print("next_index---", next_index)
                 next_intent = current_intent[:-1] + next_index
                 print("next intent - ", next_intent)
+
+
+
         print("I am after keypoints check")
         if current_reply == "Next_Lesson":
             print("came here")
