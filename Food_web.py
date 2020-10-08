@@ -416,7 +416,7 @@ def food():
                 #next_intent = current_intent[:-1] + next_index
                 str_array = current_intent.split("_")
                 if (len(str_array) == 5):
-                    next_intent = str_array [0] + "_" + str_array [1] + "_"  + str_array [2] + "_" + str_array [3] + "_" + int(str_array[4]+1)
+                    next_intent = str_array [0] + "_" + str_array [1] + "_"  + str_array [2] + "_" + str_array [3] + "_" + str(int(str_array[4]+1))
                     print("next intent - ", next_intent)
 
 
