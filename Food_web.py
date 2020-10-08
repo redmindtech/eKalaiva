@@ -61,7 +61,7 @@ def food():
                 bot_reply = {
                     "fulfillmentText": "change_lesson",
                     "followupEventInput": {
-                        "name": "6_Science_Lesson"
+                        "name": "change_lesson"
                     }
                 }
                 print("bot_reply--", bot_reply)
@@ -411,9 +411,11 @@ def food():
                 print("Keypoints executed")
 
             else:
-                next_index = str(int(current_intent[-1:]) + 1)
-                print("next_index---", next_index)
-                next_intent = current_intent[:-1] + next_index
+                #next_index = str(int(current_intent[-1:]) + 1)
+                #print("next_index---", next_index)
+                #next_intent = current_intent[:-1] + next_index
+                str_array = current_intent.split("_")
+                next_intent = str_array [0] + "_" + str_array [1] + "_"  + str_array [2] + "_" + str_array [3] + "_" + int(str_array[4]+1)
                 print("next intent - ", next_intent)
 
 
