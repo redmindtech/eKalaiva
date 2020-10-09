@@ -308,12 +308,12 @@ def getlesson(grade):
 
     if (grade == "6_Geography_Lesson"):
          res = jsonify({
-                "fulfillmentText": "Hi, Greetings! Ready to learn Geography lessons. Select the lessons to start with,. 1. Earth in Solar system.. 2. Latitudes and Longitudes.. 3. Motions of Earth.. 4. Maps.. 5. Major domains of Earth.. 6. Major Landforms of Earth.. 7. Our country, India.. 8. India, Climate and WildLife",
+                "fulfillmentText": "Hi, Greetings! Ready to learn Geography lessons. Select the lessons to start with,. 1. Earth in Solar system.. 2. Latitudes and Longitudes.. 3. Motions of Earth.. 4. Maps.. 5. Major domains of Earth.. 6. Major Landforms of Earth.. 7. Our country, India.. 8. India, Climate, WildLife",
                 "fulfillmentMessages": [
                     {
                         "text": {
                             "text": [
-                                "Hi, Greetings! Ready to learn Geography lessons. Select the lessons to start with,. 1. Earth in Solar system.. 2. Latitudes and Longitudes.. 3. Motions of Earth.. 4. Maps.. 5. Major domains of Earth.. 6. Major Landforms of Earth.. 7. Our country, India.. 8. India, Climate and WildLife",
+                                "Hi, Greetings! Ready to learn Geography lessons. Select the lessons to start with,. 1. Earth in Solar system.. 2. Latitudes and Longitudes.. 3. Motions of Earth.. 4. Maps.. 5. Major domains of Earth.. 6. Major Landforms of Earth.. 7. Our country, India.. 8. India, Climate, WildLife",
                             ]
                         }
                     }
@@ -325,7 +325,7 @@ def getlesson(grade):
                             "items": [
                                 {
                                     "simpleResponse": {
-                                        "textToSpeech": "Hi, Greetings! Ready to learn Geography lessons. Select the lessons to start with,. 1. Earth in Solar system.. 2. Latitudes and Longitudes.. 3. Motions of Earth.. 4. Maps.. 5. Major domains of Earth.. 6. Major Landforms of Earth.. 7. Our country, India.. 8. India, Climate and WildLife"
+                                        "textToSpeech": "Hi, Greetings! Ready to learn Geography lessons. Select the lessons to start with,. 1. Earth in Solar system.. 2. Latitudes and Longitudes.. 3. Motions of Earth.. 4. Maps.. 5. Major domains of Earth.. 6. Major Landforms of Earth.. 7. Our country, India.. 8. India, Climate, WildLife"
                                     }
                                 }
                             ]
@@ -353,7 +353,7 @@ def getlesson(grade):
                                     "title": "Our Country, India"
                                 },
                                 {
-                                    "title": "India, Climate and WildLife"
+                                    "title": "India, Climate, WildLife"
                                 },
                                 {
                                     "title": "Select Subject"
