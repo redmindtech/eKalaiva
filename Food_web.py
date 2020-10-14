@@ -85,7 +85,7 @@ def food():
             ready = req.get("queryResult").get("parameters").get("ready")
             q_name = req.get("queryResult").get("outputContexts")[6].get("parameters").get("current-intent") + "_Quiz"
             print("quiz name--" , q_name)
-            app.secret_code = q_name
+            app.secret_key = q_name
             #q_name = "Science Quiz"
             print(ready)
         if (req.get("queryResult").get("intent").get("displayName") == "Exit"):
