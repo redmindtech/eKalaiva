@@ -86,6 +86,7 @@ def food():
             q_name = req.get("queryResult").get("outputContexts")[6].get("parameters").get("current-intent") + "_Quiz"
             print("quiz name--" , q_name)
             app.secret_key = q_name
+            print("secret_key--", app.secret_key)
             #q_name = "Science Quiz"
             print(ready)
         if (req.get("queryResult").get("intent").get("displayName") == "Exit"):
@@ -133,6 +134,8 @@ def food():
 
         elif q_name != "":
             #app.secret_key = q_name
+            print("quiz--",q_name)
+            print("secret_key0--", app.secret_key)
             quiz = ''.join(app.secret_key)
             # First question from DB
             # second = course.main(quiz, i=1)
