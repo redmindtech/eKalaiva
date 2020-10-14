@@ -14,7 +14,7 @@ import course
 import lesson
 
 app = Flask(__name__)
-app.secret_key = 0
+#app.secret_key = 0
 app.secret_code = 1
 app.secret_count = 0
 app.secret_ques = 0
