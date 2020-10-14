@@ -14,7 +14,7 @@ import course
 import lesson
 
 app = Flask(__name__)
-#app.secret_key = 0
+app.secret_key = 0
 app.secret_code = 1
 app.secret_count = 0
 app.secret_ques = 0
@@ -360,7 +360,7 @@ def food():
                 return res
             else:
                 print("control is here")
-                course.re_set()
+                #course.re_set()
                 app.email = 0
                 res = jsonify({
                     "fulfillmentText": "QUIZ ENDED. Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
