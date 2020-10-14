@@ -14,6 +14,10 @@ import course
 import lesson
 
 app = Flask(__name__)
+@app.before_request
+def set_session_timeout():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=30)
 app.secret_key = 0
 app.secret_code = 1
 app.secret_count = 0
