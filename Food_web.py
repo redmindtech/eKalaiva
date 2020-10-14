@@ -5,20 +5,15 @@ import os
 # import mysql.connector
 
 # from flask import Flask, session, redirect, url_for, request
-from flask import Flask, session
+from flask import Flask
 from flask import request
 from flask import make_response
 from flask import jsonify
-from datetime import timedelta
 
 import course
 import lesson
 
 app = Flask(__name__)
-app.config.update(
-    DEBUG = True,
-    SECRET_KEY = 'Digitalteacher',
-    PERMANENT_SESSION_LIFETIME = 30)
 app.secret_key = 0
 app.secret_code = 1
 app.secret_count = 0
@@ -27,41 +22,37 @@ app.secret_ans = 0
 
 app.email=0
 
-
 @app.route("/food", methods=['POST', 'GET'])
 def food():
     try:
         invoke_next_question = True
         req = request.get_json(silent=True, force=True)
 
-        print("----------------START-------------------")
-        print("Request:")
-        print(req)
-
+        # to navigate through lessons
         current_reply = req.get("queryResult").get("action")
-        print("current_reply done")
-
         current_intent = req.get("queryResult").get("outputContexts")[0].get("parameters").get("current-intent")
-        print("current_intent done")
-
         print("current_intent - ", current_intent)
         print("current_reply - ", current_reply)
 
-        #emailid = "meetarun@gmail.com"
+        # to retrieve email and quiz options
         value = (req.get('queryResult'))
-        print("value -- ", value)
         emailid = ""
         ans=""
         q_name=""
         close=""
-        #name = value.get('parameters')
+
+        #for user login email id
         if (req.get("queryResult").get("intent").get("displayName") == "welcome - next" or req.get("queryResult").get("intent").get("displayName") == "Get_Email"):
             emailid = req.get("queryResult").get("parameters").get("email")
             app.email = 0
             print(emailid)
+
+        # for quiz answers
         if (req.get("queryResult").get("intent").get("displayName") == "ans_code"):
             ans = req.get("queryResult").get("parameters").get("option")
             print("ans--",ans)
+
+            # after quiz completion, ask user to change subject or change lesson
             if(ans == "change_lesson"):
                 bot_reply = {
                     "fulfillmentText": "change_lesson",
@@ -84,30 +75,28 @@ def food():
                 res = jsonify(bot_reply)
                 return res
 
-
-
+        # to start quiz
         if (req.get("queryResult").get("intent").get("displayName") == "Quiz"):
             ready = req.get("queryResult").get("parameters").get("ready")
             q_name = req.get("queryResult").get("outputContexts")[6].get("parameters").get("current-intent") + "_Quiz"
             print("quiz name--" , q_name)
-            #app.secret_key = q_name
-            print("secret_key--", app.secret_key)
             #q_name = "Science Quiz"
             print(ready)
+
+
+        # End of conversation
         if (req.get("queryResult").get("intent").get("displayName") == "Exit"):
             close = req.get("queryResult").get("parameters").get("exit")
             print(close)
-        #if (req.get("queryResult").get("intent").get("displayName") == "Quiz"):
-         #   q_name = req.get("queryResult").get("parameters").get("quizname")
-          #  print(q_name)
+
+        # to display list of lessons compatible for both google assistant and botcopy
         displayintent = req.get("queryResult").get("intent").get("displayName")
         if (displayintent == "6_English_Lesson" or displayintent == "6_Geography_Lesson" or displayintent == "6_Science_Lesson" or displayintent == "6_Social_Lesson" or displayintent == "6_Civics_Lesson" or displayintent == "6_Geography_Lesson" ):
-            print("I am calling lesson file")
             res = lesson.getlesson(displayintent)
             return res
 
+        # validate user login
         if (emailid != "") and (app.email == 0):
-
             e_mail = ''.join(emailid)
             email1 = course.email(e_mail)
             print("result--", email1)
@@ -137,32 +126,22 @@ def food():
                 res = jsonify(bot_reply)
                 return res
 
+        # to invoke first question in the quiz
         elif q_name != "":
             app.secret_key = q_name
-            print("quiz--",q_name)
-            print("secret_key0--", app.secret_key)
             quiz = ''.join(app.secret_key)
-            # First question from DB
-            # second = course.main(quiz, i=1)
-            # s = ''.join(second)
-            # q1, opt1, opt2, opt3, opt4 = course.ques_split(s)
-            # print("q1--",q1)
-            # Q1 = ''.join(q1)
-            # op1 = ''.join(opt1)
-            # op2 = ''.join(opt2)
-            # op3 = ''.join(opt3)
-            # op4 = ''.join(opt4)
+
             firstques, firstquesoptions = course.main(quiz, i=1)
-            
-            print('firstquesoptions --', firstquesoptions)
+
             q1 = firstques
-            print("q1--",q1)
+
             Q1 = ''.join(q1)
 
             opt1 = firstquesoptions[0]
             opt2 = firstquesoptions[1]
             opt3 = firstquesoptions[2]
             opt4 = firstquesoptions[3]
+            # for suggestion chips length, it has to be taken care in the db itself
             if (len(opt1) > 25):
                 opt1 = opt1 [ 0:24 ]
             if (len(opt2) > 25):
@@ -172,10 +151,6 @@ def food():
             if (len(opt4) > 25):
                 opt4 = opt4  [ 0:24 ]
 
-            print("opt1--",opt1)
-            print("opt2--",opt2)
-            print("opt3--",opt3)
-            print("opt4--",opt4)
             op1 = ''.join(opt1)            
             op2 = ''.join(opt2)
             op3 = ''.join(opt3)
@@ -241,14 +216,14 @@ def food():
                 }
             })
             return res
+
+        # from 2 to 5 questions in quiz
         elif ans != "":
-            print("control is ans")
-            print("quiz stored insess vble--",app.secret_key)
+            print ( "my quiz name",app.secret_key)
             quiz = ''.join(app.secret_key)
-            print("quiz app.secret_key --",quiz)
+
             qu, options, answer = course.query(quiz)
-            print("qu--",qu)
-            print("answer from query--",answer)
+
             app.secret_ques = qu
             app.secret_ans = answer
             questions = app.secret_ques
@@ -256,6 +231,8 @@ def food():
             x = app.secret_key
             quiz = ''.join(x)
             ques , opts = course.query2(questions,options)
+            print("ques--",ques)
+            print("options--",opts)
             an = ans.title()
             an1 = ans.upper()
             an2 = ans.lower()
@@ -266,8 +243,7 @@ def food():
                 #str1 = ''.join(ques)
                 str2 = ''.join(reply)
                 str3 = str(score)
-                #q, o1, o2, o3, o4 = course.ques_split(str1)
-                print("ques---",ques)
+
                 Q1 = ''.join(ques)
                 opt1 = opts[0]
                 opt2 = opts[1]
@@ -281,10 +257,7 @@ def food():
                     opt3 = opt3[0:24]
                 if (len(opt4) > 25):
                     opt4 = opt4[0:24]
-                print("opt1---",opt1)
-                print("opt2---",opt2)
-                print("opt3---",opt3)
-                print("opt4---",opt4)
+
                 op1 = ''.join(opt1)
                 op2 = ''.join(opt2)
                 op3 = ''.join(opt3)
@@ -364,7 +337,8 @@ def food():
                 })
                 return res
             else:
-                print("control is here")
+
+                # end quiz
                 course.re_set()
                 app.email = 0
                 res = jsonify({
@@ -414,32 +388,21 @@ def food():
             course.re_set()
 
 
-        print("I AM HERE")
+        # to decide about the next intent
         if (current_intent.endswith("Video") == 0):
             if current_intent.endswith("Keypoints"):
                 next_intent = current_intent
-                print("Keypoints executed")
 
             else:
-                #next_index = str(int(current_intent[-1:]) + 1)
-                #print("next_index---", next_index)
-                #next_intent = current_intent[:-1] + next_index
                 str_array = current_intent.split("_")
                 if (len(str_array) == 5):
-                    next_intent = str_array [0] + "_" + str_array [1] + "_"  + str_array [2] + "_" + str_array [3] + "_" + str(int(str_array[4])+1)
+                    next_intent = str_array[0] + "_" + str_array[1] + "_" + str_array[2] + "_" + str_array[3] + "_" + str(int(str_array[4]) + 1)
                     print("next intent - ", next_intent)
 
-
-
-        print("I am after keypoints check")
+        # Next lesson
         if current_reply == "Next_Lesson":
-            print("came here")
             str_array = current_intent.split("_")
-            print("couldnt do", len(str_array))
-            print("(str_array(3)--", int(str_array[3]) + 1)
-
             current_intent = str_array[0] + "_" + str_array[1] + "_" + str_array[2] + "_" + str(int(str_array[3]) + 1)
-            print("current-intent--", current_intent)
             bot_reply = {
                 "followupEventInput": {
                     "name": current_intent,
@@ -448,15 +411,15 @@ def food():
                     }
                 }
             }
-        print("I am here in Watch video")
+
+        # fetch details about video link and AR link from DB. This table is added in moodle db
         if current_reply == "Watch_Video":
-            print("came here")
             str_array = current_intent.split("_")
             if(len(str_array) >= 4):
                 current_lesson = str_array[0] + "_" + str_array[1] + "_" + str_array[2] + "_" + str_array[3]
                 current_intent = str_array[0] + "_" + str_array[1] + "_" + str_array[2] + "_" + str_array[3] + "_Video"
             link,image = course.getvideo (current_lesson)
-            print("link--",link)
+
             res = jsonify({
                     "fulfillmentText": "Food is needed for all living organisms. Click here to watch the video",
                     "fulfillmentMessages": [
@@ -518,7 +481,8 @@ def food():
                 if (current_intent.endswith("Keypoints")):
                     current_intent = current_intent[:-10]
                 else:
-                    current_intent = current_intent[:-2]
+                    str_array = current_intent.split("_")
+                    current_intent = str_array[0] + "_" + str_array[1] + "_" + str_array[2] + "_" + str_array[3] + "_1"
             print(current_intent)
             bot_reply = {
                 "followupEventInput": {
@@ -528,8 +492,8 @@ def food():
                     }
                 }
             }
-        if current_reply == "repeat":
 
+        if current_reply == "repeat":
             bot_reply = {
                 "followupEventInput": {
                     "name": current_intent,
@@ -539,6 +503,7 @@ def food():
                 }
             }
             print(bot_reply)
+
         if current_reply == "next_topic":
             bot_reply = {
                 "followupEventInput": {
@@ -549,7 +514,7 @@ def food():
                 }
             }
             print(bot_reply)
-        print("I am here in back to lesson--", current_reply)
+
         if current_reply == "back_to_lesson":
             print("current-intent--", current_intent)
             str_array = current_intent.split("_")
@@ -561,11 +526,12 @@ def food():
                 }
             }
             print(bot_reply)
+
         if current_reply == "change_lesson" or current_reply == "select_lesson":
             print("current-intent--", current_intent)
             str_array = current_intent.split("_")
             current_intent = str_array[0] + "_" + str_array[1] + "_" + str_array[2]
-            print("after change--", current_intent)
+
             bot_reply = {
                 "followupEventInput": {
                     "name": current_intent
@@ -609,9 +575,7 @@ def food():
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     print(bot_reply)
-    print("###############################")
     return res
-
 
 if __name__ == '__main__':
     app.run()
