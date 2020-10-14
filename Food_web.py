@@ -5,10 +5,11 @@ import os
 # import mysql.connector
 
 # from flask import Flask, session, redirect, url_for, request
-from flask import Flask
+from flask import Flask, session
 from flask import request
 from flask import make_response
 from flask import jsonify
+from datetime import timedelta
 
 import course
 import lesson
