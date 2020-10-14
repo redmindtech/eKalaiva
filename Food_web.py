@@ -14,7 +14,9 @@ import course
 import lesson
 
 app = Flask(__name__)
+print("before assign")
 app.secret_key = 0
+print("after assign")
 app.secret_code = 1
 app.secret_count = 0
 app.secret_ques = 0
