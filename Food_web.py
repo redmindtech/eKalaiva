@@ -403,8 +403,8 @@ def food():
                 })
             return res
 
-        elif close is not None:
-            course.re_set()
+        #elif close is not None:
+            #course.re_set()
 
 
         print("I AM HERE")
