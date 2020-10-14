@@ -85,7 +85,7 @@ def food():
             ready = req.get("queryResult").get("parameters").get("ready")
             q_name = req.get("queryResult").get("outputContexts")[6].get("parameters").get("current-intent") + "_Quiz"
             print("quiz name--" , q_name)
-            app.secret_key = q_name
+            #app.secret_key = q_name
             print("secret_key--", app.secret_key)
             #q_name = "Science Quiz"
             print(ready)
@@ -133,7 +133,7 @@ def food():
                 return res
 
         elif q_name != "":
-            #app.secret_key = q_name
+            app.secret_key = q_name
             print("quiz--",q_name)
             print("secret_key0--", app.secret_key)
             quiz = ''.join(app.secret_key)
@@ -360,7 +360,7 @@ def food():
                 return res
             else:
                 print("control is here")
-                #course.re_set()
+                course.re_set()
                 app.email = 0
                 res = jsonify({
                     "fulfillmentText": "QUIZ ENDED. Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
@@ -405,8 +405,8 @@ def food():
                 })
             return res
 
-        #elif close is not None:
-            #course.re_set()
+        elif close is not None:
+            course.re_set()
 
 
         print("I AM HERE")
