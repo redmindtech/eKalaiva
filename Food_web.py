@@ -220,7 +220,7 @@ def food():
 
         # from 2 to 5 questions in quiz
         elif ans != "":
-            print ("session['q_name']--", session['q_name'])
+            print ("session['q_name']--", session.get('q_name'))
             print ( "my quiz name",app.secret_key)
             quiz = ''.join(app.secret_key)
 
