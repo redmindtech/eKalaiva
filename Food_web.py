@@ -129,6 +129,7 @@ def food():
         # to invoke first question in the quiz
         elif q_name != "":
             app.secret_quiz = q_name
+            print("Assigned the quiz name")
             quiz = ''.join(app.secret_quiz)
 
             firstques, firstquesoptions = course.main(quiz, i=1)
