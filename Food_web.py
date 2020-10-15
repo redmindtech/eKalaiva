@@ -14,13 +14,17 @@ import course
 import lesson
 
 app = Flask(__name__)
-app.secret_key = 0
-app.secret_code = 1
-app.secret_count = 0
-app.secret_ques = 0
-app.secret_ans = 0
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=300)
+    app.secret_key = 0
+    app.secret_code = 1
+    app.secret_count = 0
+    app.secret_ques = 0
+    app.secret_ans = 0
 
-app.email=0
+    app.email=0
 
 @app.route("/food", methods=['POST', 'GET'])
 def food():
