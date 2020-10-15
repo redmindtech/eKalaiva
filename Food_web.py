@@ -5,7 +5,7 @@ import os
 # import mysql.connector
 
 # from flask import Flask, session, redirect, url_for, request
-from flask import Flask
+from flask import Flask , session
 from flask import request
 from flask import make_response
 from flask import jsonify
@@ -80,6 +80,7 @@ def food():
             ready = req.get("queryResult").get("parameters").get("ready")
             q_name = req.get("queryResult").get("outputContexts")[6].get("parameters").get("current-intent") + "_Quiz"
             print("quiz name--" , q_name)
+            session['q_name'] = q_name
             #q_name = "Science Quiz"
             print(ready)
 
@@ -219,6 +220,7 @@ def food():
 
         # from 2 to 5 questions in quiz
         elif ans != "":
+            print ("session['q_name']--", session['q_name'])
             print ( "my quiz name",app.secret_key)
             quiz = ''.join(app.secret_key)
 
