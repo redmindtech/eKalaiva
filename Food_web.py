@@ -14,7 +14,7 @@ import course
 import lesson
 
 app = Flask(__name__)
-app.secret_key = 0
+app.secret_quiz = 0
 app.secret_code = 1
 app.secret_count = 0
 app.secret_ques = 0
@@ -128,8 +128,8 @@ def food():
 
         # to invoke first question in the quiz
         elif q_name != "":
-            app.secret_key = q_name
-            quiz = ''.join(app.secret_key)
+            app.secret_quiz = q_name
+            quiz = ''.join(app.secret_quiz)
 
             firstques, firstquesoptions = course.main(quiz, i=1)
 
@@ -219,8 +219,8 @@ def food():
 
         # from 2 to 5 questions in quiz
         elif ans != "":
-            print ( "my quiz name",app.secret_key)
-            quiz = ''.join(app.secret_key)
+            print ( "my quiz name",app.secret_quiz)
+            quiz = ''.join(app.secret_quiz)
 
             qu, options, answer = course.query(quiz)
 
@@ -228,7 +228,7 @@ def food():
             app.secret_ans = answer
             questions = app.secret_ques
             answers = app.secret_ans
-            x = app.secret_key
+            x = app.secret_quiz
             quiz = ''.join(x)
             ques , opts = course.query2(questions,options)
             print("ques--",ques)
