@@ -342,6 +342,7 @@ def food():
                 # end quiz
                 course.re_set()
                 app.email = 0
+                app.secret_key = 0
                 res = jsonify({
                     "fulfillmentText": "QUIZ ENDED. Your total score is {} out of 5. Do you want to change lesson or select subject?".format(score),
                     "fulfillmentMessages": [
