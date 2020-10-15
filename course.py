@@ -289,6 +289,7 @@ def valid(ans, an, an1, an2, an3, answers):
 
 
 def re_set():
+    print("Session clearer")
     app.secret_key = 0
     app.secret_code = 0
     app.secret_score = 0
