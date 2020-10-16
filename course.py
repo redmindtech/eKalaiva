@@ -8,8 +8,8 @@ import os
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-app.secret_key = 0
-app.secret_code = 0
+app.secret_key1 = 0
+app.secret_code1 = 0
 app.secret_score = 0
 # enter your server IP address/domain name
 HOST = "redmindtechnologies.com"  # or "domain.com"
@@ -46,8 +46,8 @@ def email(e_mail):
 
 # def query2(questions):
 #     i = 0
-#     app.secret_key += 1
-#     i = app.secret_key
+#     app.secret_key1 += 1
+#     i = app.secret_key1
 #     if i < 5:
 #         que = ''.join(questions[i])
 #         return que
@@ -57,8 +57,8 @@ def email(e_mail):
 
 def query2(questions, options):
     i = 0
-    app.secret_key += 1
-    i = app.secret_key
+    app.secret_key1 += 1
+    i = app.secret_key1
     if i < 5:
         que = ''.join(questions[i])
         return que, options[i]
@@ -257,8 +257,8 @@ def fetching(quiz):
 def valid(ans, an, an1, an2, an3, answers):
     v = len(answers)
     print(v)
-    print ("secret code--", app.secret_code)
-    j = app.secret_code
+    print ("secret code--", app.secret_code1)
+    j = app.secret_code1
     print(j)
     crt = ''.join(answers[j])
     while j < v:
@@ -283,15 +283,15 @@ def valid(ans, an, an1, an2, an3, answers):
             reply = "Incorrect answer!! the correct answer is {}.".format(crt)
         print("ans in course--", crt)
         print("app.secret_score--",app.secret_score)
-        app.secret_code += 1
+        app.secret_code1 += 1
 
         return reply, app.secret_score
 
 
 def re_set():
     print("Session clearer")
-    app.secret_key = 0
-    app.secret_code = 0
+    app.secret_key1 = 0
+    app.secret_code1 = 0
     app.secret_score = 0
     app.email=0
 
